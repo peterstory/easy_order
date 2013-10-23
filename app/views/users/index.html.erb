@@ -1,0 +1,33 @@
+<% append_title('Users') %>
+
+<%= button_to 'Add User', new_user_path, method: :get %>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= link_to 'Name', users_path(sort_by: 'name') %></th>
+      <th><%= link_to 'Email', users_path(sort_by: 'email') %></th>
+      <th><%= link_to 'Role', users_path(sort_by: 'role') %></th>
+      <th><%= link_to 'Date Added', users_path(sort_by: 'created_at') %></th>
+      <th><%= link_to 'Date Updated', users_path(sort_by: 'updated_at') %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role %></td>
+        <td><%= l user.created_at, format: :long %></td>
+        <td><%= l user.updated_at, format: :long %></td>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

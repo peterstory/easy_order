@@ -1,0 +1,76 @@
+<% append_title('Restaurant Details') %>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @restaurant.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @restaurant.description %>
+</p>
+
+<p>
+  <strong>Cuisine:</strong>
+  <%= @restaurant.cuisine %>
+</p>
+
+<p>
+  <strong>Street1:</strong>
+  <%= @restaurant.street1 %>
+</p>
+
+<p>
+  <strong>Street2:</strong>
+  <%= @restaurant.street2 %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @restaurant.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @restaurant.state %>
+</p>
+
+<p>
+  <strong>Zipcode:</strong>
+  <%= @restaurant.zipcode %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @restaurant.phone %>
+</p>
+
+<p>
+  <strong>Fax:</strong>
+  <%= @restaurant.fax %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @restaurant.url %>
+</p>
+
+<p>
+  <strong>Delivers:</strong>
+  <%= @restaurant.delivers %>
+</p>
+
+<p>
+  <strong>Delivery charge:</strong>
+  <%= @restaurant.delivery_charge %>
+</p>
+
+<p>
+  <strong>Menu file:</strong>
+  <%= @restaurant.menu_file %>
+</p>
+
+<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
+<%= link_to 'Back', restaurants_path %>

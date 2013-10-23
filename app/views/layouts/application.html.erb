@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= content_for?(:title) ? content_for(:title) : 'Easy-Order' %></title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<nav>
+  <div id="logo"><a href="/index.html">Easy-Order</a></div>
+  <div id="links">
+    <ul>
+      <li><%= link_to "Users", users_path %></li>
+      <li><%= link_to "Restaurants", restaurants_path %></li>
+      <li><a href="/orders.html">Orders</a></li>
+      <li><a href="/index.html">Account</a></li>
+      <li><a href="/index.html">Sign In</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section>
+<%= yield %>
+</section>
+  
+<footer>
+  Created by Peter Story &copy; 2013. <br />
+</footer>
+  
+</body>
+</html>

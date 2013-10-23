@@ -1,0 +1,47 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    Fields marked with a (*) are required.<br/>
+    Select multiple friends by clicking while holding the "Control" key
+    on Windows, or the "Command" key on Mac. 
+  </p>
+
+  <div class="field">
+    <%= f.label :name, "Name *" %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :email, "Email Address *" %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :password, "Password *" %><br>
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation, "Confirm Password *" %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="field">
+    <%= f.label :role, "Role *" %><br>
+    <%= f.text_field :role %>
+  </div>
+  <div class="field">
+    <%= f.label :friends, "Friends" %><br>
+    <%= f.select(:friends, options_for_select(@all_users, @friends), {}, {multiple: true}) %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

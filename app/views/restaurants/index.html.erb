@@ -1,0 +1,46 @@
+<% append_title('Restaurants') %>
+
+<%= button_to 'Add Restaurant', new_restaurant_path, method: :get %>
+
+<ul class="restaurant_list">
+  <li>
+    <div class="view_by">
+      Sort by: <%= link_to 'Name', restaurants_path(sort_by: 'name') %>
+               <%= link_to 'Cuisine', restaurants_path(sort_by: 'cuisine') %>
+    </div>
+  </li>
+  
+  <% @restaurants.each do |restaurant| %>
+  <li class="restaurant">
+    <div class="info">
+      <h1><%= restaurant.name %></h1>
+      <dl>
+        <dt>Address:</dt>
+          <dd><%= restaurant.street1 %></dd>
+          <% if restaurant.street2 %>
+          <dd><%= restaurant.street2 %></dd>
+          <% end %>
+        <dt>Cuisine Type:</dt>
+          <dd><%= restaurant.cuisine %></dd>
+        <dt>Delivery? </dt>
+          <dd><%= restaurant.delivers ? "Yes" : "No" %></dd>
+        <dt>Phone Number:</dt>
+          <dd><%= restaurant.phone %></dd>
+        <% if restaurant.fax %>
+        <dt>Fax Number:</dt>
+          <dd><%= restaurant.fax %></dd>
+        <% end %>
+        <dt>Website:</dt>
+          <% url = restaurant.url %>
+          <% url = /^http/.match(url) ? url : "http://#{url}" %>
+          <dd><%= link_to restaurant.url, url %></dd>
+      </dl>
+    </div>
+    <div class="options">
+      <span class="option"><%= link_to 'Show', restaurant %></span>
+      <span class="option"><%= link_to 'Edit', edit_restaurant_path(restaurant) %></span>
+      <span class="option"><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+    </div>
+  </li>
+  <% end %>
+</ul>

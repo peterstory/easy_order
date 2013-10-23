@@ -1,0 +1,59 @@
+// Place all the styles related to the Restaurants controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.restaurant_list {
+  clear: left;
+  list-style-type: none;
+  padding-left: 0px;
+}
+.restaurant, .order {
+  clear: right;
+  border: 1px solid gray;
+  background-color: #FFF5D5;
+  width: 50%;
+  border-radius: 10px;
+  margin-top: 5px; 
+  margin-bottom: 10px; 
+  overflow: hidden;
+}
+.restaurant .info, .order .info {
+  padding: 10px;
+}
+.restaurant h1 {
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+.restaurant .options {
+  background-color: #FFE4A3;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+  padding: 3px;
+  border-top: 1px solid gray;
+}
+.restaurant .options .option {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.restaurant .options a {
+  color: black;
+}
+.view_by {
+  float: right;
+  margin-right: 50%;
+  margin-bottom: 3px;
+}
+input#restaurant_name, input#restaurant_street1, input#restaurant_street2, input#restaurant_url, input#restaurant_email {
+  width: 175px;
+}
+input#restaurant_zipcode, input#restaurant_state {
+  width: 60px;
+}
+.field.delivery_charge {
+  display: inline;
+  margin-left: 20px;
+}
+input#restaurant_delivery_charge {
+  width: 60px;
+}
