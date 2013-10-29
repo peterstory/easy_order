@@ -24,9 +24,13 @@
           <dd><%= restaurant.cuisine %></dd>
         <dt>Delivery? </dt>
           <dd><%= restaurant.delivers ? "Yes" : "No" %></dd>
+        <% if restaurant.delivers? %>
+        <dt>Delivery Charge:</dt>
+          <dd><%= number_to_currency restaurant.delivery_charge %></dd>
+        <% end %>
         <dt>Phone Number:</dt>
           <dd><%= restaurant.phone %></dd>
-        <% if restaurant.fax %>
+        <% unless restaurant.fax.blank? %>
         <dt>Fax Number:</dt>
           <dd><%= restaurant.fax %></dd>
         <% end %>

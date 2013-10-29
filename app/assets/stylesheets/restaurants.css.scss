@@ -7,7 +7,7 @@
   list-style-type: none;
   padding-left: 0px;
 }
-.restaurant, .order {
+.restaurant {
   clear: right;
   border: 1px solid gray;
   background-color: #FFF5D5;
@@ -17,7 +17,7 @@
   margin-bottom: 10px; 
   overflow: hidden;
 }
-.restaurant .info, .order .info {
+.restaurant .info {
   padding: 10px;
 }
 .restaurant h1 {
@@ -56,4 +56,13 @@ input#restaurant_zipcode, input#restaurant_state {
 }
 input#restaurant_delivery_charge {
   width: 60px;
+}
+
+.city, .state, .zip {
+  float: left;
+  margin-top: 0px;
+}
+.state, .zip {
+  clear: none;
+  margin-left: 10px;
 }

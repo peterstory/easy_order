@@ -1,3 +1,4 @@
+// Styling for body
 body {
   margin-left: 0px;
   margin-right: 0px;
@@ -6,6 +7,7 @@ body {
   font-family: "Times New Roman", "Times", serif;
 }
 
+// Styling for navigation bar
 nav {
   position: fixed;
   top: 0px;
@@ -45,6 +47,7 @@ nav em {
   right: 10px;
 }
 
+// Styling for headings
 h1 {
   font-weight: normal;
   padding: 2px;
@@ -57,12 +60,15 @@ h2 {
   font-size: 14pt;
 }
 
+// Section in which each pages unique content sits
+// Only the navigation bar and footers are outside
 section {
   margin-left: 10px;
   margin-right: 10px;
   margin-top: 70px;
 }
 
+// Pretty Buttons
 input[type="button"], input[type="submit"] {
   background-color: #FFEFBE;
   border: 4px outset #FFCC66;
@@ -80,6 +86,7 @@ a .button {
   float: left;
 }
 
+// Pretty Tables
 table {
   clear: left;
   border-collapse: collapse;
@@ -104,78 +111,50 @@ tr:nth-child(odd) td {
   background-color: #FFEFBE;
 }
 
+// Pretty dictionaries
 dt {
   margin-top: 5px;
 }
 
-.order {
-  clear: left;
-}
-.order_details h1 {
-  margin-top: 0px;
-}
-.order .info > ul {
-  list-style-type: none;
-  padding-left: 0px;
-}
-.order_details em {
-  font-weight: bold;
-}
-
-fieldset > div {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  clear: both;
-}
-
-
-.item, .price, .city, .state, .zip {
-  float: left;
-  margin-top: 0px;
-}
-.price, .state, .zip {
-  clear: none;
-}
-div.delivery_cost {
-  display: inline;
-  margin-left: 20px;
-}
-textarea {
-  width: 200px;
-  height: 75px;
-}
-textarea.notes {
-  height: 35px;
-  margin-bottom: 20px;
-}
+// Pretty fieldsets
 fieldset {
   border: 1px solid gray;
 }
 fieldset fieldset {
   width: 75%;
 }
-
-.field {
+fieldset > div {
   margin-top: 15px;
   margin-bottom: 15px;
+  clear: both;
 }
 
+// Larger textareas
+textarea {
+  width: 200px;
+  height: 75px;
+}
+
+// Footer, at bottom of every page
 footer {
   margin-top: 20px;
   font-size: 85%;
   text-align: center;
 }
 
+// The following was automatically generated during scaffolding
+.field {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
 #notice {
   color: green;
 }
-
 .field_with_errors {
   padding: 2px;
   background-color: red;
   display: table;
 }
-
 #error_explanation {
   width: 450px;
   border: 2px solid red;

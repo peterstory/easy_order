@@ -21,17 +21,17 @@ ActiveRecord::Schema.define(version: 20131022172111) do
   end
 
   create_table "restaurants", force: true do |t|
-    t.string   "name"
+    t.string   "name",            null: false
     t.text     "description"
-    t.string   "cuisine"
-    t.string   "street1"
+    t.string   "cuisine",         null: false
+    t.string   "street1",         null: false
     t.string   "street2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zipcode"
-    t.string   "phone"
+    t.string   "city",            null: false
+    t.string   "state",           null: false
+    t.string   "zipcode",         null: false
+    t.string   "phone",           null: false
     t.string   "fax"
-    t.string   "url"
+    t.string   "url",             null: false
     t.boolean  "delivers"
     t.float    "delivery_charge"
     t.string   "menu_file"
