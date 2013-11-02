@@ -1,0 +1,53 @@
+<%= form_for(@order) do |f| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    Fields marked with a (*) are required. <br />
+    Select multiple friends by clicking while holding the "Control" key on Windows, or the "Command" key 
+    on a Mac. At least one friend is required.
+  </p>
+
+  <div class="field">
+    <%= f.label :restaurant_id, "Restaurant *" %><br>
+    <%= f.select :restaurant_id, @all_restaurants, {include_blank: true} %>
+  </div>
+  <div class="field">
+    <%= f.label :organizer_id, "Organizer *" %><br>
+    <%= f.select :organizer_id, @all_users, {include_blank: true} %>
+  </div>
+  <div class="field">
+    <%= f.label :participating_users %><br />
+    <%= f.select :participating_users, options_for_select(@all_users, @participating_users), {}, {multiple: true} %>
+  </div>
+  <div class="field">
+    <%= f.label :type, "Type *" %><br>
+    <% @all_types.each do |type| %>
+      <%= f.radio_button :type, type %>
+      <%= f.label :type, type, value: type %> <br />
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :status, "Status *" %><br>
+    <% @all_statuses.each do |status| %>
+      <%= f.radio_button :status, status %>
+      <%= f.label :status, status, value: status %> <br />
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :placed_at, "Placed at *" %><br>
+    <%= f.datetime_select :placed_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

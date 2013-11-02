@@ -36,6 +36,10 @@ class RestaurantTest < ActiveSupport::TestCase
     restaurant.delivery_charge = 1
     assert restaurant.valid?
     assert restaurant.errors[:delivery_charge].none?, "delivery_charge > 0 should be allowed"
+    
+    restaurant.delivery_charge = nil
+    assert restaurant.valid?
+    assert restaurant.errors[:delivery_charge].none?, "blank delivery_charge should be allowed"
   end
   
 end

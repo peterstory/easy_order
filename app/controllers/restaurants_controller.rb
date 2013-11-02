@@ -1,14 +1,11 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  helper_method :sort_column, :sort_direction
 
   # GET /restaurants
   # GET /restaurants.json
   def index
-    unless params[:sort_by]
-      @restaurants = Restaurant.all
-    else
-      @restaurants = Restaurant.all.order(params[:sort_by])
-    end
+    @restaurants = Restaurant.order(sort_column + " " + sort_direction)
   end
 
   # GET /restaurants/1
@@ -74,5 +71,13 @@ class RestaurantsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_params
       params.require(:restaurant).permit(:name, :description, :cuisine, :street1, :street2, :city, :state, :zipcode, :phone, :fax, :url, :delivers, :delivery_charge, :menu_file)
+    end
+    
+    def sort_column
+      Restaurant.column_names.include?(params[:sort]) ? params[:sort] : "id"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

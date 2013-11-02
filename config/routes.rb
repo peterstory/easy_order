@@ -1,4 +1,6 @@
 EasyOrder::Application.routes.draw do
+  resources :orders
+
   resources :restaurants
 
   resources :users

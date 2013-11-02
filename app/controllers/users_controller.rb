@@ -1,14 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  helper_method :sort_column, :sort_direction
 
   # GET /users
   # GET /users.json
   def index
-    unless params[:sort_by]
-      @users = User.all
-    else
-      @users = User.order(params[:sort_by])
-    end
+    @users = User.order(sort_column + " " + sort_direction)
   end
 
   # GET /users/1
@@ -49,7 +46,7 @@ class UsersController < ApplicationController
         format.json { render action: 'show', status: :created, location: @user }
       else
         @all_users = all_user_names_ids
-        @friends = user_params[:friends]
+        @friends = user_params[:friends]  # Replace with simple names and IDs
         format.html { render action: 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -107,5 +104,13 @@ class UsersController < ApplicationController
         all_users.push([user.name, user.id])
       end
       return all_users
+    end
+    
+    def sort_column
+      User.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

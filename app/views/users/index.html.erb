@@ -5,11 +5,11 @@
 <table>
   <thead>
     <tr>
-      <th><%= link_to 'Name', users_path(sort_by: 'name') %></th>
-      <th><%= link_to 'Email', users_path(sort_by: 'email') %></th>
-      <th><%= link_to 'Role', users_path(sort_by: 'role') %></th>
-      <th><%= link_to 'Date Added', users_path(sort_by: 'created_at') %></th>
-      <th><%= link_to 'Date Updated', users_path(sort_by: 'updated_at') %></th>
+      <th><%= sortable 'name' %></th>
+      <th><%= sortable 'email' %></th>
+      <th><%= sortable 'role' %></th>
+      <th><%= sortable 'created_at', 'Date Added' %></th>
+      <th><%= sortable 'updated_at', 'Date Updated' %></th>
       <th></th>
       <th></th>
       <th></th>

@@ -1,0 +1,43 @@
+<% append_title('Orders') %>
+
+<%= button_to 'Add Order', new_order_path, method: :get %>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= sortable "id", "ID" %> </th>
+      <th>Restaurant</th>
+      <th>Organizer</th>
+      <th>Participants</th>
+      <th><%= sortable "type" %></th>
+      <th><%= sortable "total" %></th>
+      <th><%= sortable "status" %></th>
+      <th><%= sortable "placed_at" %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= link_to order.restaurant.name, order.restaurant %></td>
+        <td><%= link_to order.organizer.name, order.organizer %></td>
+        <td>
+        <% order.participants.each do |participant| %>
+          <%= link_to participant.user.name, participant.user %>
+        <% end %>
+        </td>
+        <td><%= order.type %></td>
+        <td><%= order.total %></td>
+        <td><%= order.status %></td>
+        <td><%= order.placed_at %></td>
+        <td><%= link_to 'Show', order %></td>
+        <td><%= link_to 'Edit', edit_order_path(order) %></td>
+        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

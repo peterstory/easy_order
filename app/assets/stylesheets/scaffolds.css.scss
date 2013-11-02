@@ -86,6 +86,19 @@ a .button {
   float: left;
 }
 
+// Arrows for sorting tables
+th .sorted {
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+th .asc {
+  background-image: url(/images/up_arrow.png);
+}
+th .desc {
+  background-image: url(/images/down_arrow.png);
+}
+
 // Pretty Tables
 table {
   clear: left;

@@ -5,8 +5,8 @@
 <ul class="restaurant_list">
   <li>
     <div class="view_by">
-      Sort by: <%= link_to 'Name', restaurants_path(sort_by: 'name') %>
-               <%= link_to 'Cuisine', restaurants_path(sort_by: 'cuisine') %>
+      Sort by: <%= sortable 'name' %>
+               <%= sortable 'cuisine' %>
     </div>
   </li>
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131022172111) do
+ActiveRecord::Schema.define(version: 20131029154558) do
 
   create_table "friendships", force: true do |t|
     t.integer  "user_id",    null: false
@@ -19,6 +19,29 @@ ActiveRecord::Schema.define(version: 20131022172111) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "orders", force: true do |t|
+    t.integer  "restaurant_id"
+    t.integer  "organizer_id"
+    t.string   "type"
+    t.float    "total"
+    t.string   "status"
+    t.datetime "placed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "participants", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "order_id"
+    t.string   "role"
+    t.float    "total"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "participants", ["order_id"], name: "index_participants_on_order_id", using: :btree
+  add_index "participants", ["user_id"], name: "index_participants_on_user_id", using: :btree
 
   create_table "restaurants", force: true do |t|
     t.string   "name",            null: false
