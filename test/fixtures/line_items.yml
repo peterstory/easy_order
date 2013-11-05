@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  participant_id: 
+  order_id: 
+  name: MyString
+  price: 1.5
+  notes: MyText
+
+two:
+  participant_id: 
+  order_id: 
+  name: MyString
+  price: 1.5
+  notes: MyText
