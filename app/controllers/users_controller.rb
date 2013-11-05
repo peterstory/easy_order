@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :load_select_options, only: [:new, :create, :edit, :update]
   helper_method :sort_column, :sort_direction
 
   # GET /users
@@ -17,16 +18,11 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
-    @all_users = all_user_names_ids
   end
 
   # GET /users/1/edit
   def edit
-    @all_users = all_user_names_ids params[:id]
-    @friends = Array.new
-    User.find(params[:id]).friends.each do |friend|
-      @friends.push friend.id
-    end
+    @friends = @user.friends.map { |friend| friend.id }
   end
 
   # POST /users
@@ -45,7 +41,6 @@ class UsersController < ApplicationController
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
-        @all_users = all_user_names_ids
         @friends = user_params[:friends]  # Replace with simple names and IDs
         format.html { render action: 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -67,7 +62,6 @@ class UsersController < ApplicationController
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
-        @all_users = all_user_names_ids
         @friends = user_params[:friends]
         format.html { render action: 'edit' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -97,13 +91,14 @@ class UsersController < ApplicationController
                                    :role, friends: [])
     end
     
-    # Accepts an optional parameter of the current user, who is not to be included
-    def all_user_names_ids(except_id = -1)
-      all_users = Array.new
-      User.where("id != ?", except_id).order("name").each do |user|
-        all_users.push([user.name, user.id])
+    def load_select_options
+      unless !(defined? @user) || (@user.id.nil?)
+        except_id = @user.id
+      else
+        except_id = -1
       end
-      return all_users
+      @all_users = User.where("id != ?", except_id).order("name").map { |user| [user.name, user.id] }
+      @all_roles = User.valid_roles
     end
     
     def sort_column

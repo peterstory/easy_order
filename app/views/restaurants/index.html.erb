@@ -43,7 +43,7 @@
     <div class="options">
       <span class="option"><%= link_to 'Show', restaurant %></span>
       <span class="option"><%= link_to 'Edit', edit_restaurant_path(restaurant) %></span>
-      <span class="option"><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+      <span class="option"><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: "Are you sure you want to destroy restaurant '#{restaurant.name}'?" } %></span>
     </div>
   </li>
   <% end %>

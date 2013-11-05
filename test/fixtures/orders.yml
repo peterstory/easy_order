@@ -1,16 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  restaurant: one
-  organizer: one
+  restaurant: valid
+  organizer: invalid
   type: delivery
   total: 1.5
   status: pending
   placed_at: 2013-10-29 11:43:09
 
 two:
-  restaurant: one
-  organizer: one
+  restaurant: valid
+  organizer: valid
   type: 
   total: 1.5
   status: MyString

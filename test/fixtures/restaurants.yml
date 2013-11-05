@@ -1,33 +1,33 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  name: MyString
-  description: MyText
-  cuisine: MyString
-  street1: MyString
-  street2: MyString
-  city: MyString
+valid:
+  name: Super Valid Restaurant
+  description: The restaurant should properly validate. 
+  cuisine: Mexican
+  street1: 154 Topsfield Road
+  street2: 2nd Floor
+  city: Ipswich
   state: MA
-  zipcode: MyString
-  phone: MyString
-  fax: MyString
-  url: MyString
-  delivers: false
+  zipcode: 01938
+  phone: 978-356-0000
+  fax: 978-356-1111
+  url: www.valid.com
+  delivers: true
   delivery_charge: 1.5
-  menu_file: MyString
+  menu_file: C:\FancyFolder\menu.pdf
 
-two:
-  name: MyString
-  description: MyText
-  cuisine: MyString
-  street1: MyString
-  street2: MyString
-  city: MyString
-  state: MA
-  zipcode: MyString
-  phone: MyString
-  fax: MyString
-  url: MyString
+invalid:
+  name: Very Invalid Restaurant
+  description: This restaruant will not validate for a variety of reasons
+  cuisine: Garbage
+  street1: Place Street
+  street2: Somewhere
+  city: America
+  state: USA USA USA
+  zipcode: 0123456789
+  phone: 911
+  fax: 911
+  url: a.invalid.a
   delivers: false
-  delivery_charge: 1.5
-  menu_file: MyString
+  delivery_charge: -1.2
+  menu_file: C:\FancyFolder\bad_menu.pdf

@@ -35,7 +35,7 @@
   </div>
   <div class="field">
     <%= f.label :role, "Role *" %><br>
-    <%= f.text_field :role %>
+    <%= f.select :role, @all_roles, {include_blank: true} %>
   </div>
   <div class="field">
     <%= f.label :friends, "Friends" %><br>

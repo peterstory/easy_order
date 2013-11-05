@@ -1,13 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  name: MyString
-  email: MyString
-  password: MyString
-  role: MyString
+valid:
+  name: Valid User
+  email: valid@test.co.uk
+  password: SuperGoodPassword
+  role: admin
 
-two:
-  name: MyString
-  email: MyString
-  password: MyString
-  role: MyString
+invalid:
+  name: Invalid User
+  email: a.invalid.a
+  password: BadPassword
+  role: not good
+
+bill:
+  name: Mr. Bill
+  email: mrbill@yahoo.com
+  password: iamsogoodatlife
+  role: user
+
+bob:
+  name: Billy Bob
+  email: billybob@gmail.com
+  password: yodawgwhatsup
+  role: user
+
+ted:
+  name: Teddy Bear
+  email: ted@aol.com
+  password: fancypants
+  role: user

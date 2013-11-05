@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :load_select_options, only: [:new, :create, :edit, :update]
   helper_method :sort_column, :sort_direction
 
   # GET /restaurants
@@ -71,6 +72,10 @@ class RestaurantsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_params
       params.require(:restaurant).permit(:name, :description, :cuisine, :street1, :street2, :city, :state, :zipcode, :phone, :fax, :url, :delivers, :delivery_charge, :menu_file)
+    end
+    
+    def load_select_options
+      @all_cuisines = Restaurant.valid_cuisines
     end
     
     def sort_column

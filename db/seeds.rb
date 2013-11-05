@@ -34,7 +34,7 @@ b_paradise = Restaurant.create({name: 'Burrito Paradise', description: 'The ULTI
                                 zipcode: '01993', phone: '978-333-4567',
                                 url: 'www.burritoparadise.com'})
 p_palace = Restaurant.create({name: 'Pizza Palace', description: 'We have pizzas.',
-                              cuisine: 'Pizza', street1: '42 Canal Street', 
+                              cuisine: 'Italian', street1: '42 Canal Street', 
                               city: 'Salem', state: 'MA', 
                               zipcode: '01970', phone: '978-222-4567',
                               url: 'www.pizzapalace.com'})

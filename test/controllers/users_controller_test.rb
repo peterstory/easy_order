@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
   setup do
-    @user = users(:one)
+    @user = users(:valid)
   end
 
   test "should get index" do
@@ -37,7 +37,7 @@ class UsersControllerTest < ActionController::TestCase
     end
     
     # We shouldn't be redirected
-    assert_response :success
+    assert_template :new, "user should be prompted for further edits"
   end
 
   test "should show user" do
@@ -62,4 +62,30 @@ class UsersControllerTest < ActionController::TestCase
 
     assert_redirected_to users_path
   end
+  
+  test "role options should be populated" do
+    get :new
+    assert_select "select#user_role option", (User.valid_roles.count + 1), "Expected number of valid roles, plus a blank option"
+    get :edit, id: @user
+    assert_select "select#user_role option", (User.valid_roles.count + 1), "Expected number of valid roles, plus a blank option"
+  end
+  
+  test "friend options should be populated" do
+    get :new
+    assert_select "select#user_friends option", User.count, "Expected number of users"
+    get :edit, id: @user
+    assert_select "select#user_friends option", (User.count - 1), "Expected number of users, minus ourselves"
+  end
+  
+  test "friend options should be properly preselected" do
+    User.all.each do |user|
+      get :edit, id: user
+      friends = user.friends
+      assert_select "select#user_friends option[selected=selected]", friends.count, "Excepected correct number of existing friends to be preselected"
+      friends.each do |friend|
+        assert_select "select#user_friends option[selected=selected][value=" + friend.id.to_s +  "]", 1, "Excepected friend to be preselected"
+      end
+    end
+  end
+  
 end

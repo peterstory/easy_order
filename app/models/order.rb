@@ -12,14 +12,14 @@ class Order < ActiveRecord::Base
   def self.valid_types
     %w(delivery pick-up)
   end
-  validates :type, inclusion: { in: valid_types }
+  validates :type, presence: true, inclusion: { in: valid_types, message: "'%{value}' is not a valid delivery type" }
   
   validates :total, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
   
   def self.valid_statuses
     %w(pending placed)
   end
-  validates :status, inclusion: { in: valid_statuses }
+  validates :status, presence: true, inclusion: { in: valid_statuses, message: "'%{value}' is not a valid status"  }
   
   validates :placed_at, presence: true
 end
