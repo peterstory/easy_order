@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131029154558) do
+ActiveRecord::Schema.define(version: 20131105024155) do
 
   create_table "friendships", force: true do |t|
     t.integer  "user_id",    null: false
@@ -19,6 +19,19 @@ ActiveRecord::Schema.define(version: 20131029154558) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "line_items", force: true do |t|
+    t.integer  "participant_id"
+    t.integer  "order_id"
+    t.string   "name"
+    t.float    "price"
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
+  add_index "line_items", ["participant_id"], name: "index_line_items_on_participant_id", using: :btree
 
   create_table "orders", force: true do |t|
     t.integer  "restaurant_id"
