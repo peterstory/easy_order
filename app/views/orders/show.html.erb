@@ -30,7 +30,8 @@
       <ul>
       <% line_items.each do |line_item| %>
       <li>
-        <%= line_item.name %> <%= link_to 'Show', [@order, line_item] %>, 
+        <%= line_item.name %>, <%= number_to_currency line_item.price %>
+        <%= link_to 'Show', [@order, line_item] %>, 
         <%= link_to 'Edit', [:edit, @order, line_item] %>, 
         <%= link_to 'Destroy', [@order, line_item], method: :delete, data: { confirm: "Are you sure you want to destroy line item '#{line_item.name}'?" } %></td>
         

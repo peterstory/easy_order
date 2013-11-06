@@ -31,12 +31,12 @@
         <% end %>
         </td>
         <td><%= order.type %></td>
-        <td><%= order.total %></td>
+        <td><%= number_to_currency order.total %></td>
         <td><%= order.status %></td>
         <td><%= order.placed_at %></td>
         <td><%= link_to 'Show', order %></td>
         <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: "Are you sure you want to destroy order ##{order.id}?" } %></td>
       </tr>
     <% end %>
   </tbody>

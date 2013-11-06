@@ -1,4 +1,11 @@
 class Participant < ActiveRecord::Base
+  # Set default value of "participant"
+  after_initialize do
+    if self.new_record?
+      self.role = "participant"
+    end
+  end
+
   belongs_to :user
   belongs_to :participating_user, class_name: 'User', foreign_key: 'user_id'  # Same as above, clearly named
   belongs_to :order
