@@ -1,17 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  restaurant: valid
-  organizer: invalid
+valid:
+  restaurant: the_grill
+  organizer: ted
   type: delivery
   total: 1.5
   status: pending
   placed_at: 2013-10-29 11:43:09
 
-two:
-  restaurant: valid
-  organizer: valid
-  type: 
-  total: 1.5
-  status: MyString
+invalid:
+  restaurant: the_grill
+  organizer: ted
+  type: nothing_good
+  total: -1.5
+  status: nothing_good
+  placed_at: 2013-10-29 11:43:09
+
+grill_order:
+  restaurant: the_grill
+  organizer: bill
+  type: pickup
+  total: 25.99
+  status: placed
   placed_at: 2013-10-29 11:43:09

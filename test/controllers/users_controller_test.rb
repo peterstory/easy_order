@@ -81,9 +81,9 @@ class UsersControllerTest < ActionController::TestCase
     User.all.each do |user|
       get :edit, id: user
       friends = user.friends
-      assert_select "select#user_friends option[selected=selected]", friends.count, "Excepected correct number of existing friends to be preselected"
+      assert_select "select#user_friends option[selected=selected]", friends.count, "Expected correct number of existing friends to be preselected"
       friends.each do |friend|
-        assert_select "select#user_friends option[selected=selected][value=" + friend.id.to_s +  "]", 1, "Excepected friend to be preselected"
+        assert_select "select#user_friends option[selected=selected][value=" + friend.id.to_s +  "]", 1, "Expected friend to be preselected"
       end
     end
   end

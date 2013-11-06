@@ -1,3 +1,30 @@
 // Place all the styles related to the Orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.order {
+  clear: right;
+  border: 1px solid gray;
+  background-color: #FFF5D5;
+  width: 50%;
+  border-radius: 10px;
+  margin-top: 5px; 
+  margin-bottom: 10px; 
+  overflow: hidden;
+}
+.order .info {
+  padding: 10px;
+}
+.info > h1 {
+  margin-top: 0px;
+}
+.order .info > ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+.order em {
+  font-weight: bold;
+}
+ul.line_items {
+  margin: 0px;
+}

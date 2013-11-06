@@ -1,6 +1,8 @@
-<h1>Editing order</h1>
+<% append_title('Edit Order') %>
+<fieldset>
+  <legend>Add Order</legend>
+  <%= render 'form' %>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @order %> |
-<%= link_to 'Back', orders_path %>
+  <%= link_to 'Show', @order %> |
+  <%= link_to 'Back', orders_path %>
+</fieldset>

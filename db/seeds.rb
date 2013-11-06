@@ -40,21 +40,33 @@ p_palace = Restaurant.create({name: 'Pizza Palace', description: 'We have pizzas
                               url: 'www.pizzapalace.com'})
 
 b_zone_order = Order.create({restaurant_id: b_zone.id, organizer_id: peter.id, 
-                             type: 'delivery', total: 14.20, status: 'pending', 
+                             type: 'delivery', total: 0.0, status: 'pending', 
                              placed_at: (DateTime.now + 1)})
 b_paradise_order = Order.create({restaurant_id: b_paradise.id, organizer_id: peter.id, 
-                                 type: 'pick-up', total: 42.60, status: 'pending', 
+                                 type: 'pick-up', total: 0.0, status: 'pending', 
                                  placed_at: (DateTime.now + 8)})
 p_palace_order = Order.create({restaurant_id: p_palace.id, organizer_id: bjork.id, 
-                               type: 'delivery', total: 24.03, status: 'placed', 
+                               type: 'delivery', total: 0.0, status: 'placed', 
                                placed_at: (DateTime.now)})
 
-participants = Participant.create([{user_id: peter.id, order_id: b_zone_order.id, 
-                                    role: 'organizer', total: 14.20}, 
-                                   {user_id: peter.id, order_id: b_paradise_order.id, 
-                                    role: 'organizer', total: 20.05}, 
-                                   {user_id: craig.id, order_id: b_paradise_order.id, 
-                                    role: 'participant', total: 22.55}, 
-                                   {user_id: bjork.id, order_id: p_palace_order.id, 
-                                    role: 'organizer', total: 24.03}
-                                  ])
+peter_in_b_zone_order = Participant.create({user_id: peter.id, order_id: b_zone_order.id, 
+                                            role: 'organizer', total: 0.0})
+peter_in_b_paradise_order = Participant.create({user_id: peter.id, order_id: b_paradise_order.id, 
+                                                role: 'organizer', total: 0.0})
+craig_in_b_paradise_order = Participant.create({user_id: craig.id, order_id: b_paradise_order.id, 
+                                                role: 'participant', total: 0.0})
+bjork_in_p_palace_order = Participant.create({user_id: bjork.id, order_id: p_palace_order.id, 
+                                              role: 'organizer', total: 0.0})
+                                              
+peter_item1_in_b_zone_order = LineItem.create({participant_id: peter_in_b_zone_order.id, 
+                                               order_id: b_zone_order.id,
+                                               name: "Giant Beef Burrito", 
+                                               price: 8.20, notes: "Your burritos are good."})
+peter_item2_in_b_zone_order = LineItem.create({participant_id: peter_in_b_zone_order.id, 
+                                               order_id: b_zone_order.id,
+                                               name: "Fry Bucket", 
+                                               price: 6.00, notes: "Your fries are also good."})
+peter_item1_in_b_paradise = LineItem.create({participant_id: peter_in_b_paradise_order.id, 
+                                             order_id: b_paradise_order.id,
+                                             name: "Small Pork Burrito", 
+                                             price: 20.05, notes: "So expensive, so good."})

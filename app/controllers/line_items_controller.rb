@@ -1,11 +1,7 @@
 class LineItemsController < ApplicationController
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
-
-  # GET /line_items
-  # GET /line_items.json
-  def index
-    @line_items = LineItem.all
-  end
+  before_action :set_order
+  before_action :load_select_options, only: [:new, :create, :edit, :update]
 
   # GET /line_items/1
   # GET /line_items/1.json
@@ -28,7 +24,7 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to @line_item, notice: 'Line item was successfully created.' }
+        format.html { redirect_to @order, notice: 'Line item was successfully created.' }
         format.json { render action: 'show', status: :created, location: @line_item }
       else
         format.html { render action: 'new' }
@@ -42,7 +38,7 @@ class LineItemsController < ApplicationController
   def update
     respond_to do |format|
       if @line_item.update(line_item_params)
-        format.html { redirect_to @line_item, notice: 'Line item was successfully updated.' }
+        format.html { redirect_to [@order, @line_item], notice: 'Line item was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -56,7 +52,7 @@ class LineItemsController < ApplicationController
   def destroy
     @line_item.destroy
     respond_to do |format|
-      format.html { redirect_to line_items_url }
+      format.html { redirect_to @order }
       format.json { head :no_content }
     end
   end
@@ -66,9 +62,19 @@ class LineItemsController < ApplicationController
     def set_line_item
       @line_item = LineItem.find(params[:id])
     end
-
+    
+    def set_order
+      @order = Order.find(params[:order_id])
+    end
+    
+    def load_select_options
+      @participants = @order.participants.map { |participant| [participant.user.name, participant.id] }
+    end
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def line_item_params
-      params.require(:line_item).permit(:participant_id, :order_id, :name, :price, :notes)
+      line_item_params = params.require(:line_item).permit(:order_id, :participant_id, :name, :price, :notes)
+      line_item_params[:order_id] = params.require(:order_id)
+      line_item_params
     end
 end

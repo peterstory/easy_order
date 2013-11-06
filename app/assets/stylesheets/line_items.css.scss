@@ -1,3 +1,16 @@
 // Place all the styles related to the LineItems controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.field.name, .field.price {
+  float: left;
+}
+.field.notes {
+  clear: left;
+}
+.field.price {
+  margin-left: 10px;
+}
+input#line_item_price {
+  width: 50px;
+}

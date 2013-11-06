@@ -1,8 +1,10 @@
 class Order < ActiveRecord::Base
   self.inheritance_column = nil  # Allow column named :type
 
-  has_many :participants
+  has_many :participants, dependent: :destroy
   has_many :participating_users, through: :participants
+  
+  has_many :line_items, dependent: :destroy
   
   belongs_to :restaurant
   validates :restaurant, presence: true

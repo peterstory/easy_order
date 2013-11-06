@@ -26,11 +26,9 @@ class FriendshipTest < ActiveSupport::TestCase
     friendship = Friendship.new({user_id: @friendship.user_id, friend_id: @friendship.friend_id})
     assert friendship.valid?
     
-    # Break the friendship, three times
-    3.times do 
-      friendship.friend_id = rand(9999)
-      assert friendship.invalid?
-    end
+    # Break the friendship, randomly
+    friendship.friend_id = rand(9999)
+    assert friendship.invalid?
   end
   
 end

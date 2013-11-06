@@ -1,4 +1,4 @@
-<%= form_for(@line_item) do |f| %>
+<%= form_for [@order, @line_item] do |f| %>
   <% if @line_item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@line_item.errors.count, "error") %> prohibited this line_item from being saved:</h2>
@@ -10,24 +10,24 @@
       </ul>
     </div>
   <% end %>
+  
+  <p>
+    Fields marked with a (*) are required.
+  </p>
 
   <div class="field">
-    <%= f.label :participant %><br>
-    <%= f.text_field :participant %>
+    <%= f.label :participant_id, "Participant *" %><br>
+    <%= f.select :participant_id, @participants %>
   </div>
-  <div class="field">
-    <%= f.label :order %><br>
-    <%= f.text_field :order %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
+  <div class="field name">
+    <%= f.label :name, "Name *" %><br>
     <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :price %><br>
+  <div class="field price">
+    <%= f.label :price, "Price *" %><br>
     <%= f.text_field :price %>
   </div>
-  <div class="field">
+  <div class="field notes">
     <%= f.label :notes %><br>
     <%= f.text_area :notes %>
   </div>

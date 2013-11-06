@@ -12,6 +12,12 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    # Load line items
+    @participant_line_items = Hash.new
+    @order.participants.each do |participant|
+      line_items = LineItem.where("order_id = ? and participant_id = ?", @order.id, participant.id)
+      @participant_line_items[participant] = line_items
+    end
   end
 
   # GET /orders/new

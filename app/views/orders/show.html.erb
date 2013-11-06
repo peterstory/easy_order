@@ -1,34 +1,65 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Restaurant:</strong>
-  <%= @order.restaurant_id %>
-</p>
+<%= button_to 'Add Item', new_order_line_item_path(@order.id), method: :get %>
 
-<p>
-  <strong>Organizer:</strong>
-  <%= @order.organizer_id %>
-</p>
 
-<p>
-  <strong>Type:</strong>
-  <%= @order.type %>
-</p>
+<div class="order">
+<div class="info">
+  <h1>Details for Order #<%= @order.id %></h1>
+  <p>
+    <strong>Restaurant:</strong>
+    <%= link_to @order.restaurant.name, @order.restaurant %>
+  </p>
 
-<p>
-  <strong>Total:</strong>
-  <%= @order.total %>
-</p>
+  <p>
+    <strong>Organizer:</strong>
+    <%= link_to @order.organizer.name, @order.organizer %>
+  </p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @order.status %>
-</p>
+  <p>
+    <strong>Type:</strong>
+    <%= @order.type %>
+  </p>
 
-<p>
-  <strong>Placed at:</strong>
-  <%= @order.placed_at %>
-</p>
+  <p>
+    <strong>Line Items:</strong>
+    <ul class="line_items">
+    <% @participant_line_items.each do |participant, line_items| %>
+    <li>
+      <%= link_to participant.user.name, participant.user %>
+      <ul>
+      <% line_items.each do |line_item| %>
+      <li>
+        <%= line_item.name %> <%= link_to 'Show', [@order, line_item] %>, 
+        <%= link_to 'Edit', [:edit, @order, line_item] %>, 
+        <%= link_to 'Destroy', [@order, line_item], method: :delete, data: { confirm: "Are you sure you want to destroy line item '#{line_item.name}'?" } %></td>
+        
+      </li>
+      <% end %>
+      <li><em>Total: </em>$<%= participant.total %></li>
+      </ul>
+    </li>
+    <% end %>
+    </ul>
+  </p>
+    
+  <p>
+    <em><strong>Grand Total:</strong></em>
+    <%= @order.total %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= @order.status %>
+  </p>
+
+  <p>
+    <strong>Placed at:</strong>
+    <%= @order.placed_at %>
+  </p>
+
+</div>
+</div>
 
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>

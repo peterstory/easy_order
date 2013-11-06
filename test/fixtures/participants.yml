@@ -1,13 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  user_id: 
-  order_id: 
-  role: MyString
-  total: 1.5
+valid:
+  user: bill
+  order: grill_order
+  role: organizer
+  total: 10.50
 
-two:
-  user_id: 
-  order_id: 
-  role: MyString
-  total: 1.5
+invalid:
+  user: invalid
+  order: invalid
+  role: participant
+  total: -1.5
+
+ted_in_grill_order:
+  user: ted
+  order: grill_order
+  role: participant
+  total: 7.50

@@ -1,7 +1,8 @@
 EasyOrder::Application.routes.draw do
-  resources :line_items
 
-  resources :orders
+  resources :orders do
+    resources :line_items, except: [:index]
+  end
 
   resources :restaurants
 

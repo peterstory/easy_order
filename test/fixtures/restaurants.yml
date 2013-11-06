@@ -31,3 +31,19 @@ invalid:
   delivers: false
   delivery_charge: -1.2
   menu_file: C:\FancyFolder\bad_menu.pdf
+
+the_grill: 
+  name: Fancy Grill Place
+  description: We serve delicious food. 
+  cuisine: BBQ
+  street1: 255 Grapevine Road
+  street2: Jenks
+  city: Wenham
+  state: MA
+  zipcode: 01984
+  phone: 978-810-0000
+  fax: 978-810-1111
+  url: www.greatbbq.com
+  delivers: true
+  delivery_charge: 5.0
+  menu_file: C:\FancyFolder\bbq_menu.pdf

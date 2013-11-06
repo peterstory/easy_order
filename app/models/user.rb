@@ -10,8 +10,7 @@ class User < ActiveRecord::Base
     class_name: 'Friendship',
     dependent: :destroy
   
-  # Other relationships
-  has_many :participants
+  has_many :participants, dependent: :destroy
   
   # Validations
   validates :name, :password, presence: true

@@ -1,15 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  participant_id: 
-  order_id: 
-  name: MyString
-  price: 1.5
-  notes: MyText
+valid:
+  participant: ted_in_grill_order
+  order: grill_order
+  name: Pulled Pork Sandwich
+  price: 11.20
+  notes: Make it really delicious please. 
 
-two:
-  participant_id: 
-  order_id: 
-  name: MyString
-  price: 1.5
-  notes: MyText
+invalid:
+  participant_id: ted
+  order_id: grill_order
+  name: Garbage Burger
+  price: -1.5
+  notes: I do not really want this. 

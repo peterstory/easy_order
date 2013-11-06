@@ -2,12 +2,12 @@
 
 <p>
   <strong>Participant:</strong>
-  <%= @line_item.participant %>
+  <%= link_to @line_item.participant.user.name, @line_item.participant.user %>
 </p>
 
 <p>
   <strong>Order:</strong>
-  <%= @line_item.order %>
+  <%= link_to ("#" + @line_item.order.id.to_s), @line_item.order %>
 </p>
 
 <p>
@@ -25,5 +25,5 @@
   <%= @line_item.notes %>
 </p>
 
-<%= link_to 'Edit', edit_line_item_path(@line_item) %> |
-<%= link_to 'Back', line_items_path %>
+<%= link_to 'Edit', edit_order_line_item_path(@order, @line_item) %> |
+<%= link_to 'Back', @order %>
