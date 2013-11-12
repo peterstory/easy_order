@@ -4,6 +4,7 @@ class OrdersControllerTest < ActionController::TestCase
   setup do
     @order = orders(:valid)
     @invalid_order = orders(:invalid)
+    @grill_order = orders(:grill_order)
   end
 
   test "should get index" do
@@ -107,6 +108,10 @@ class OrdersControllerTest < ActionController::TestCase
     assert_select "input[name='order[status]']", Order.valid_statuses.count, "Expected number of valid statuses"
   end
   
-  
+  test "line items should be displayed within order" do 
+    get :show, id: @grill_order.id
+    assert_response :success, "An order containing line items should load successfully"
+    assert_select "li.line_item", @grill_order.line_items.count, "Expected all line items for the order to be displayed"
+  end
   
 end

@@ -16,8 +16,6 @@ class LineItem < ActiveRecord::Base
   private
     # Recalculate the participant's and order's totals
     def recalculate_totals
-      # I don't think this is the safest way!
-      
       # Update order's total
       order = self.order
       order_total = 0

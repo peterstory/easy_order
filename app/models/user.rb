@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
     dependent: :destroy
   
   has_many :participants, dependent: :destroy
+  has_many :orders, through: :participants,
+    foreign_key: 'order_id',
+    class_name: 'Order'
+    
   
   # Validations
   validates :name, :password, presence: true

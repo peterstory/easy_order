@@ -3,7 +3,7 @@ class CreateParticipants < ActiveRecord::Migration
     create_table :participants do |t|
       t.references :user, index: true
       t.references :order, index: true
-      t.string :role
+      t.string :role, null: false
       t.float :total
 
       t.timestamps

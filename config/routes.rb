@@ -1,5 +1,8 @@
 EasyOrder::Application.routes.draw do
 
+  get "welcome/index"
+  root 'welcome#index'
+  
   resources :orders do
     resources :line_items, except: [:index]
   end

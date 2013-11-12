@@ -9,19 +9,19 @@
 <body>
 
 <nav>
-  <div id="logo"><a href="/index.html">Easy-Order</a></div>
+  <div id="logo"><a href="/">Easy-Order</a></div>
   <div id="links">
     <ul>
       <li><%= link_to "Users", users_path %></li>
       <li><%= link_to "Restaurants", restaurants_path %></li>
-      <li><a href="/orders.html">Orders</a></li>
-      <li><a href="/index.html">Account</a></li>
-      <li><a href="/index.html">Sign In</a></li>
+      <li><%= link_to "Orders", orders_path %></li>
+      <li><a href="/">Account</a></li>
+      <li><a href="/">Sign In</a></li>
     </ul>
   </div>
 </nav>
 
-<section>
+<section class="<%= content_for?(:section_class) ? content_for(:section_class) : '' %>">
 <%= yield %>
 </section>
   

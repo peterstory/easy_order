@@ -33,7 +33,7 @@
         <td><%= order.type %></td>
         <td><%= number_to_currency order.total %></td>
         <td><%= order.status %></td>
-        <td><%= order.placed_at %></td>
+        <td><%= l order.placed_at, format: :long %></td>
         <td><%= link_to 'Show', order %></td>
         <td><%= link_to 'Edit', edit_order_path(order) %></td>
         <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: "Are you sure you want to destroy order ##{order.id}?" } %></td>

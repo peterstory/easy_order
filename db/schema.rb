@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20131105024155) do
   create_table "line_items", force: true do |t|
     t.integer  "participant_id"
     t.integer  "order_id"
-    t.string   "name"
-    t.float    "price"
+    t.string   "name",           null: false
+    t.float    "price",          null: false
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -34,20 +34,22 @@ ActiveRecord::Schema.define(version: 20131105024155) do
   add_index "line_items", ["participant_id"], name: "index_line_items_on_participant_id", using: :btree
 
   create_table "orders", force: true do |t|
-    t.integer  "restaurant_id"
-    t.integer  "organizer_id"
-    t.string   "type"
+    t.integer  "restaurant_id", null: false
+    t.integer  "organizer_id",  null: false
+    t.string   "type",          null: false
     t.float    "total"
-    t.string   "status"
-    t.datetime "placed_at"
+    t.string   "status",        null: false
+    t.datetime "placed_at",     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "orders", ["restaurant_id"], name: "index_orders_on_restaurant_id", using: :btree
+
   create_table "participants", force: true do |t|
     t.integer  "user_id"
     t.integer  "order_id"
-    t.string   "role"
+    t.string   "role",       null: false
     t.float    "total"
     t.datetime "created_at"
     t.datetime "updated_at"

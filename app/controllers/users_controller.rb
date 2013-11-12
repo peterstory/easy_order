@@ -6,7 +6,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.order(sort_column + " " + sort_direction)
+    @users = User.order(sort_column + " " + sort_direction).
+      includes([:orders])
   end
 
   # GET /users/1

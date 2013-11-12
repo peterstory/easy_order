@@ -3,8 +3,8 @@ class CreateLineItems < ActiveRecord::Migration
     create_table :line_items do |t|
       t.references :participant, index: true
       t.references :order, index: true
-      t.string :name
-      t.float :price
+      t.string :name, null: false
+      t.float :price, null: false
       t.text :notes
 
       t.timestamps

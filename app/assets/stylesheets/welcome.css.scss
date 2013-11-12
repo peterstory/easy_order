@@ -1,0 +1,19 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+section.homepage {
+  width: 85%;
+}
+img {
+  float: right;
+  margin-left: 5px;
+  margin-bottom: 20px;
+}
+.pizza {
+  border: 1px solid gray;
+  margin-bottom: 20px;
+}
+.subsection {
+  clear: right;
+}

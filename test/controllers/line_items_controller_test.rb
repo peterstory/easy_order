@@ -4,10 +4,13 @@ class LineItemsControllerTest < ActionController::TestCase
   setup do
     @line_item = line_items(:valid)
     @order = @line_item.order
+    @invalid_line_item = line_items(:invalid)
   end
 
   # Line items are only viewable in the context of their order, so 
-  # we don't need to test for index
+  # we don't need to test for index. 
+  # However, in the functional test for Orders, we check that 
+  # line items are displayed. 
     
   test "should get new" do
     get :new, order_id: @order.id
@@ -18,12 +21,24 @@ class LineItemsControllerTest < ActionController::TestCase
     assert_difference('LineItem.count') do
       post :create, order_id: @order.id, line_item: { name: @line_item.name, 
                                                       notes: @line_item.notes, 
-                                                      order_id: @line_item.order_id, 
+                                                      order_id: @order.id, 
                                                       participant_id: @line_item.participant_id, 
                                                       price: @line_item.price }
     end
 
     assert_redirected_to @order
+  end
+  
+  test "should fail to create invalid order" do
+    assert_no_difference('LineItem.count') do 
+      post :create, order_id: @order.id, line_item: { name: @invalid_line_item.name, 
+                                                      notes: @invalid_line_item.notes, 
+                                                      order_id: @order.id, 
+                                                      participant_id: @invalid_line_item.participant_id, 
+                                                      price: @invalid_line_item.price }
+    end
+
+    assert_template :new, "User should be prompted for further edits"
   end
 
   test "should show line_item" do

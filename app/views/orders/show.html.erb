@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<%= button_to 'Add Item', new_order_line_item_path(@order.id), method: :get %>
+<%= button_to 'Add Line Item', new_order_line_item_path(@order.id), method: :get %>
 
 
 <div class="order">
@@ -29,7 +29,7 @@
       <%= link_to participant.user.name, participant.user %>
       <ul>
       <% line_items.each do |line_item| %>
-      <li>
+      <li class="line_item">
         <%= line_item.name %>, <%= number_to_currency line_item.price %>
         <%= link_to 'Show', [@order, line_item] %>, 
         <%= link_to 'Edit', [:edit, @order, line_item] %>, 
@@ -37,7 +37,7 @@
         
       </li>
       <% end %>
-      <li><em>Total: </em>$<%= participant.total %></li>
+      <li><em>Total: </em><%= number_to_currency participant.total %></li>
       </ul>
     </li>
     <% end %>
@@ -46,7 +46,7 @@
     
   <p>
     <em><strong>Grand Total:</strong></em>
-    <%= @order.total %>
+    <%= number_to_currency @order.total %>
   </p>
 
   <p>
@@ -56,7 +56,7 @@
 
   <p>
     <strong>Placed at:</strong>
-    <%= @order.placed_at %>
+    <%= l @order.placed_at, format: :long %>
   </p>
 
 </div>

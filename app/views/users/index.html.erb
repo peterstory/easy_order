@@ -8,6 +8,7 @@
       <th><%= sortable 'name' %></th>
       <th><%= sortable 'email' %></th>
       <th><%= sortable 'role' %></th>
+      <th>Orders</th>
       <th><%= sortable 'created_at', 'Date Added' %></th>
       <th><%= sortable 'updated_at', 'Date Updated' %></th>
       <th></th>
@@ -22,6 +23,13 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.role %></td>
+        <td>
+        <% if user.orders.count > 0 %>
+          <%= link_to (user.orders.count.to_s + " orders"), orders_path(user_id: user.id) %>
+        <% else %>
+          0 orders
+        <% end %>
+        </td>
         <td><%= l user.created_at, format: :long %></td>
         <td><%= l user.updated_at, format: :long %></td>
         <td><%= link_to 'Show', user %></td>

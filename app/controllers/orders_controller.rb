@@ -1,12 +1,18 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  helper_method :sort_column, :sort_direction
+  helper_method :sort_column, :sort_direction, :only_for_user
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.order(sort_column + " " + sort_direction).
-      includes([:restaurant, :organizer, :participants => :user])
+    user_id = only_for_user
+    unless user_id
+      @orders = Order.order(sort_column + " " + sort_direction).
+        includes([:restaurant, :organizer, :participants => :user])
+    else
+      @orders = User.find(user_id).orders.order(sort_column + " " + sort_direction).
+        includes(:restaurant, :organizer, :participants => :user)
+    end
   end
 
   # GET /orders/1
@@ -124,5 +130,9 @@ class OrdersController < ApplicationController
 
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+    
+    def only_for_user
+      params[:user_id]
     end
 end
