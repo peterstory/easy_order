@@ -68,7 +68,7 @@
     </div>
   </div>
   <div class="field">
-    Upload menu: 
+    Upload <%= "new" if @restaurant.menu %> menu: 
     <%= f.file_field("uploaded_menu") %>
   </div>
   <div class="actions">

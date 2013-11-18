@@ -68,11 +68,15 @@
 </p>
 
 <p>
-  <strong>Menu file:</strong>
-  <% if /^image/.match @restaurant.menu.content_type %>
-    <%= image_tag restaurant_menu_path @restaurant.id %>
+  <strong>Menu:</strong>
+  <% if @restaurant.menu %>
+    <% if /^image/.match @restaurant.menu.content_type %>
+      <%= image_tag(restaurant_menu_path(@restaurant.id), class: "menu") %>
+    <% else %>
+      <%= link_to "Download", restaurant_menu_path(@restaurant.id) %>
+    <% end %>
   <% else %>
-    <%= link_to "Download Menu", restaurant_menu_path(@restaurant.id) %>
+    Not available
   <% end %>
   <%= @restaurant.menu_file %>
 </p>

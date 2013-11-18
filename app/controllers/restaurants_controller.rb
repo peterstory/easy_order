@@ -35,7 +35,9 @@ class RestaurantsController < ApplicationController
   # POST /restaurants.json
   def create
     checked_params = restaurant_params
-    checked_params[:menu] = Menu.new ({ "uploaded_menu" => checked_params.delete("uploaded_menu")})
+    if checked_params["uploaded_menu"]
+      checked_params[:menu] = Menu.new ({ "uploaded_menu" => checked_params.delete("uploaded_menu")})
+    end
     @restaurant = Restaurant.new(checked_params)
 
     respond_to do |format|
@@ -52,8 +54,13 @@ class RestaurantsController < ApplicationController
   # PATCH/PUT /restaurants/1
   # PATCH/PUT /restaurants/1.json
   def update
+    checked_params = restaurant_params
+    if checked_params["uploaded_menu"]
+      checked_params[:menu] = Menu.new ({ "uploaded_menu" => checked_params.delete("uploaded_menu")})
+    end
+    
     respond_to do |format|
-      if @restaurant.update(restaurant_params)
+      if @restaurant.update(checked_params)
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully updated.' }
         format.json { head :no_content }
       else
