@@ -11,4 +11,8 @@ class Restaurant < ActiveRecord::Base
   validates :delivery_charge, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
   
   has_many :orders
+  
+  has_one :menu
+  accepts_nested_attributes_for :menu
+  validates_associated :menu
 end

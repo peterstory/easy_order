@@ -1,5 +1,5 @@
 class RestaurantsController < ApplicationController
-  before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :set_restaurant, only: [:show, :menu, :edit, :update, :destroy]
   before_action :load_select_options, only: [:new, :create, :edit, :update]
   helper_method :sort_column, :sort_direction
 
@@ -12,6 +12,14 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1
   # GET /restaurants/1.json
   def show
+  end
+  
+  # GET /restaurants/menu/1
+  def menu
+    @menu = @restaurant.menu
+    send_data(@menu.data, filename: @menu.name, 
+                          type: @menu.content_type, 
+                          dispostion: "inline")
   end
 
   # GET /restaurants/new
@@ -26,7 +34,9 @@ class RestaurantsController < ApplicationController
   # POST /restaurants
   # POST /restaurants.json
   def create
-    @restaurant = Restaurant.new(restaurant_params)
+    checked_params = restaurant_params
+    checked_params[:menu] = Menu.new ({ "uploaded_menu" => checked_params.delete("uploaded_menu")})
+    @restaurant = Restaurant.new(checked_params)
 
     respond_to do |format|
       if @restaurant.save
@@ -71,7 +81,7 @@ class RestaurantsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_params
-      params.require(:restaurant).permit(:name, :description, :cuisine, :street1, :street2, :city, :state, :zipcode, :phone, :fax, :url, :delivers, :delivery_charge, :menu_file)
+      params.require(:restaurant).permit(:name, :description, :cuisine, :street1, :street2, :city, :state, :zipcode, :phone, :fax, :url, :delivers, :delivery_charge, :uploaded_menu)
     end
     
     def load_select_options

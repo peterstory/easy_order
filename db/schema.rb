@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131105024155) do
+ActiveRecord::Schema.define(version: 20131117230214) do
 
   create_table "friendships", force: true do |t|
     t.integer  "user_id",    null: false
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 20131105024155) do
 
   add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
   add_index "line_items", ["participant_id"], name: "index_line_items_on_participant_id", using: :btree
+
+  create_table "menus", force: true do |t|
+    t.string   "name"
+    t.string   "content_type"
+    t.binary   "data",          limit: 2147483647
+    t.integer  "restaurant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "menus", ["restaurant_id"], name: "index_menus_on_restaurant_id", using: :btree
 
   create_table "orders", force: true do |t|
     t.integer  "restaurant_id", null: false

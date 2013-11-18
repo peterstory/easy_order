@@ -69,6 +69,11 @@
 
 <p>
   <strong>Menu file:</strong>
+  <% if /^image/.match @restaurant.menu.content_type %>
+    <%= image_tag restaurant_menu_path @restaurant.id %>
+  <% else %>
+    <%= link_to "Download Menu", restaurant_menu_path(@restaurant.id) %>
+  <% end %>
   <%= @restaurant.menu_file %>
 </p>
 

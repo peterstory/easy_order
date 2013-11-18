@@ -8,6 +8,7 @@ EasyOrder::Application.routes.draw do
   end
 
   resources :restaurants
+  get "restaurants/menu/:id" => "restaurants#menu", as: :restaurant_menu
 
   resources :users
 
