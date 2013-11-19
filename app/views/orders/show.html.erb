@@ -55,8 +55,14 @@
   </p>
 
   <p>
-    <strong>Placed at:</strong>
-    <%= l @order.placed_at, format: :long %>
+    <strong><span id="order_timer_label">Placed at:</span></strong>
+    <script>
+      $(document).ready(function() {
+        // Start the timer
+        startTimer("#order_timer_label", "#order_timer", <%= @order.placed_at.to_i * 1000 %>);
+      })
+    </script>
+    <span id="order_timer"><%= l @order.placed_at, format: :long %></span>
   </p>
 
 </div>
