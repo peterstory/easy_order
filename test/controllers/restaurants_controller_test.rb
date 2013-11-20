@@ -4,6 +4,8 @@ class RestaurantsControllerTest < ActionController::TestCase
   setup do
     @restaurant = restaurants(:valid)
     @invalid_restaurant = restaurants(:invalid)
+    @restaurant_with_menu = restaurants(:the_grill)
+    @menu = menus(:valid)
   end
 
   test "should get index" do
@@ -23,7 +25,7 @@ class RestaurantsControllerTest < ActionController::TestCase
                                   delivers: @restaurant.delivers, 
                                   delivery_charge: @restaurant.delivery_charge, 
                                   description: @restaurant.description, 
-                                  fax: @restaurant.fax, menu_file: @restaurant.menu_file, 
+                                  fax: @restaurant.fax,
                                   name: @restaurant.name, phone: @restaurant.phone, 
                                   state: @restaurant.state, street1: @restaurant.street1, 
                                   street2: @restaurant.street2, url: @restaurant.url, 
@@ -39,7 +41,7 @@ class RestaurantsControllerTest < ActionController::TestCase
                                   delivers: @invalid_restaurant.delivers, 
                                   delivery_charge: @invalid_restaurant.delivery_charge, 
                                   description: @invalid_restaurant.description, 
-                                  fax: @invalid_restaurant.fax, menu_file: @invalid_restaurant.menu_file, 
+                                  fax: @invalid_restaurant.fax, 
                                   name: @invalid_restaurant.name, phone: @invalid_restaurant.phone, 
                                   state: @invalid_restaurant.state, street1: @invalid_restaurant.street1, 
                                   street2: @invalid_restaurant.street2, url: @invalid_restaurant.url, 
@@ -47,6 +49,61 @@ class RestaurantsControllerTest < ActionController::TestCase
     end
 
     assert_template :new, "user should be prompted for further edits"
+  end
+  
+  test "should create restaurant with menu" do
+    originalNumberOfMenus = Menu.count
+    
+    assert_difference('Restaurant.count') do
+      post :create, restaurant: { city: @restaurant.city, cuisine: @restaurant.cuisine,
+                                  delivers: @restaurant.delivers, 
+                                  delivery_charge: @restaurant.delivery_charge, 
+                                  description: @restaurant.description, 
+                                  fax: @restaurant.fax,
+                                  name: @restaurant.name, phone: @restaurant.phone, 
+                                  state: @restaurant.state, street1: @restaurant.street1, 
+                                  street2: @restaurant.street2, url: @restaurant.url, 
+                                  zipcode: @restaurant.zipcode,
+                                  uploaded_menu: fixture_file_upload('../fixtures/binaries/ImageMenu.png', 'image/png')}
+    end
+    
+    assert (Menu.count != originalNumberOfMenus), "a menu should be added to the database"
+
+    assert_redirected_to restaurant_path(assigns(:restaurant))
+  end
+  
+  test "should not create a restaurant with an invalid menu" do
+    originalNumberOfMenus = Menu.count
+    
+    assert_no_difference('Restaurant.count') do
+      post :create, restaurant: { city: @restaurant.city, cuisine: @restaurant.cuisine,
+                                  delivers: @restaurant.delivers, 
+                                  delivery_charge: @restaurant.delivery_charge, 
+                                  description: @restaurant.description, 
+                                  fax: @restaurant.fax,
+                                  name: @restaurant.name, phone: @restaurant.phone, 
+                                  state: @restaurant.state, street1: @restaurant.street1, 
+                                  street2: @restaurant.street2, url: @restaurant.url, 
+                                  zipcode: @restaurant.zipcode,
+                                  uploaded_menu: fixture_file_upload('../fixtures/binaries/InvalidMenu.rtf', 'application/rtf')}
+    end
+    
+    assert (Menu.count == originalNumberOfMenus), "an invalid menu should not be added to the database"
+    
+    assert_template :new, "user should be prompted for further edits"
+  end
+  
+  test "uploading a new menu should remove the old menu" do
+    originalNumberOfMenus = Menu.count
+    originalMenuID = @restaurant_with_menu.menu.id
+    
+    patch :update, id: @restaurant_with_menu, restaurant: { uploaded_menu: fixture_file_upload('../fixtures/binaries/PDFMenu.pdf', 'application/pdf')}
+        
+    assert (Menu.count == originalNumberOfMenus), "old menu should be deleted if a new menu is added"
+    # We must query the database, since @restaurant_with_menu is stale
+    assert (Restaurant.find(@restaurant_with_menu.id).menu.id != originalMenuID), "new menu should replace old menu"
+
+    assert_redirected_to restaurant_path(assigns(:restaurant))
   end
 
   test "should show restaurant" do
@@ -60,7 +117,7 @@ class RestaurantsControllerTest < ActionController::TestCase
   end
 
   test "should update restaurant" do
-    patch :update, id: @restaurant, restaurant: { city: @restaurant.city, cuisine: @restaurant.cuisine, delivers: @restaurant.delivers, delivery_charge: @restaurant.delivery_charge, description: @restaurant.description, fax: @restaurant.fax, menu_file: @restaurant.menu_file, name: @restaurant.name, phone: @restaurant.phone, state: @restaurant.state, street1: @restaurant.street1, street2: @restaurant.street2, url: @restaurant.url, zipcode: @restaurant.zipcode }
+    patch :update, id: @restaurant, restaurant: { city: @restaurant.city, cuisine: @restaurant.cuisine, delivers: @restaurant.delivers, delivery_charge: @restaurant.delivery_charge, description: @restaurant.description, fax: @restaurant.fax, name: @restaurant.name, phone: @restaurant.phone, state: @restaurant.state, street1: @restaurant.street1, street2: @restaurant.street2, url: @restaurant.url, zipcode: @restaurant.zipcode }
     assert_redirected_to restaurant_path(assigns(:restaurant))
   end
   
@@ -69,7 +126,7 @@ class RestaurantsControllerTest < ActionController::TestCase
                                                   delivers: @invalid_restaurant.delivers, 
                                                   delivery_charge: @invalid_restaurant.delivery_charge, 
                                                   description: @invalid_restaurant.description, 
-                                                  fax: @invalid_restaurant.fax, menu_file: @invalid_restaurant.menu_file, 
+                                                  fax: @invalid_restaurant.fax, 
                                                   name: @invalid_restaurant.name, phone: @invalid_restaurant.phone, 
                                                   state: @invalid_restaurant.state, street1: @invalid_restaurant.street1, 
                                                   street2: @invalid_restaurant.street2, url: @invalid_restaurant.url, 

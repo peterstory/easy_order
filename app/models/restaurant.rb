@@ -12,7 +12,7 @@ class Restaurant < ActiveRecord::Base
   
   has_many :orders
   
-  has_one :menu
+  has_one :menu, dependent: :destroy
   accepts_nested_attributes_for :menu
   validates_associated :menu
 end

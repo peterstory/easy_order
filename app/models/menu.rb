@@ -1,8 +1,10 @@
 class Menu < ActiveRecord::Base
   belongs_to :restaurant
   
+  validates :name, :content_type, :data, presence: true
   validate :correct_content_type
   
+  # Content type handling code based off Agile Rails text, Chapter 21
   def uploaded_menu=(menu_field)
     self.name = base_part_of(menu_field.original_filename)
     self.content_type = menu_field.content_type.chomp

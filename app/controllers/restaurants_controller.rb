@@ -1,12 +1,19 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :menu, :edit, :update, :destroy]
-  before_action :load_select_options, only: [:new, :create, :edit, :update]
+  before_action :load_select_options, only: [:index, :new, :create, :edit, :update]
   helper_method :sort_column, :sort_direction
 
   # GET /restaurants
   # GET /restaurants.json
   def index
-    @restaurants = Restaurant.order(sort_column + " " + sort_direction)
+    sorting_direction = sort_direction
+    
+    # Ascending order should have restaurants that deliver first
+    if sort_column == "delivers"
+      sorting_direction = sorting_direction == "asc" ? "desc" : "asc"
+    end
+    
+    @restaurants = Restaurant.order(sort_column + " " + sorting_direction)
   end
 
   # GET /restaurants/1
@@ -93,6 +100,10 @@ class RestaurantsController < ApplicationController
     
     def load_select_options
       @all_cuisines = Restaurant.valid_cuisines
+      @all_cities = Restaurant.select(:city).map{ |city| city[:city] }
+      @all_cities.uniq!
+      @all_states = Restaurant.select(:state).map{ |state| state[:state] }
+      @all_states.uniq!
     end
     
     def sort_column

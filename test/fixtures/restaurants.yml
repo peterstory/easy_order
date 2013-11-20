@@ -14,7 +14,6 @@ valid:
   url: www.valid.com
   delivers: true
   delivery_charge: 1.5
-  menu_file: C:\FancyFolder\menu.pdf
 
 invalid:
   name: Very Invalid Restaurant
@@ -30,7 +29,6 @@ invalid:
   url: a.invalid.a
   delivers: false
   delivery_charge: -1.2
-  menu_file: C:\FancyFolder\bad_menu.pdf
 
 the_grill: 
   name: Fancy Grill Place
@@ -46,4 +44,3 @@ the_grill:
   url: www.greatbbq.com
   delivers: true
   delivery_charge: 5.0
-  menu_file: C:\FancyFolder\bbq_menu.pdf

@@ -6,12 +6,25 @@
   <li>
     <div class="view_by">
       Sort by: <%= sortable 'name' %>
-               <%= sortable 'cuisine' %>
+               <%= sortable 'delivers', 'Delivery' %>
+    </div>
+    <div class="search">
+      Filter by: 
+      <%= select "search", "cuisine", (@all_cuisines.unshift "- cuisine -") %>
+      <%= select "search", "city", (@all_cities.unshift "- city -") %>
+      <%= select "search", "state", (@all_states.unshift "- state -") %>
+      <script>
+      $(document).ready(function() {
+        $("#search_cuisine").on("change", restaurantSearch);
+        $("#search_city").on("change", restaurantSearch);
+        $("#search_state").on("change", restaurantSearch);
+      });
+      </script>
     </div>
   </li>
   
   <% @restaurants.each do |restaurant| %>
-  <li class="restaurant">
+  <li class="restaurant" data='{"cuisine" : "<%= restaurant.cuisine %>", "city" : "<%= restaurant.city %>", "state" : "<%= restaurant.state %>"}'>
     <div class="info">
       <h1><%= restaurant.name %></h1>
       <dl>
@@ -20,6 +33,7 @@
           <% if restaurant.street2 %>
           <dd><%= restaurant.street2 %></dd>
           <% end %>
+          <dd><%= restaurant.city %>, <%= restaurant.state %> <%= restaurant.zipcode %></dd>
         <dt>Cuisine Type:</dt>
           <dd><%= restaurant.cuisine %></dd>
         <dt>Delivery? </dt>

@@ -83,7 +83,6 @@ ActiveRecord::Schema.define(version: 20131117230214) do
     t.string   "url",             null: false
     t.boolean  "delivers"
     t.float    "delivery_charge"
-    t.string   "menu_file"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

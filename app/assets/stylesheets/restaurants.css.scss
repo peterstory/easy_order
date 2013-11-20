@@ -8,7 +8,7 @@
   padding-left: 0px;
 }
 .restaurant {
-  clear: right;
+  clear: both;
   border: 1px solid gray;
   background-color: #FFF5D5;
   width: 50%;
@@ -44,6 +44,10 @@
   margin-right: 50%;
   margin-bottom: 3px;
 }
+.search {
+	float: left;
+	margin-bottom: 3px;
+}
 input#restaurant_name, input#restaurant_street1, input#restaurant_street2, input#restaurant_url, input#restaurant_email {
   width: 175px;
 }
@@ -70,4 +74,17 @@ input#restaurant_delivery_charge {
 img.menu {
 	float: none;
 	display: block;
+}
+
+.none_found {
+	clear: both;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-bottom: 200px;
+	font-size: 18pt;
+	text-align: center;
+	border: 1px solid gray;
+	background-color: #FFF5D5;
+	border-radius: 10px;
+	width: 50%;
 }

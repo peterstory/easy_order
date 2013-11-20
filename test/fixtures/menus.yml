@@ -1,13 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  name: MyString
-  content_type: MyString
-  data: 
-  restaurant_id: 
+<%
+	# Functions for loading binary into YAML files, useful in fixtures
+	# Thanks to http://www.tamingthemindmonkey.com/2011/08/18/rails-binary-data-in-fixtures
 
-two:
-  name: MyString
-  content_type: MyString
-  data: 
-  restaurant_id: 
+	def fixture_data(name)
+	  render_binary("#{::Rails.root.to_s}/test/fixtures/binaries/#{name}")
+	end
+
+	def render_binary(filename, indent_level = 4)
+	  data = File.open(filename,'rb').read
+
+	  indent = ""
+	  indent_level.times{ indent << " " }
+
+	  "!binary | \n#{indent}#{[data].pack('m').gsub(/\n/,"\n#{indent}")}\n"
+	end
+%>
+
+valid:
+  name: Simple Menu
+  content_type: image/png
+  data: <%= fixture_data "ImageMenu.png" %>
+  restaurant: the_grill
+
+invalid:
+  name: Bad Menu
+  content_type: application/rtf
+  data: <%= fixture_data "InvalidMenu.rtf" %>
+  restaurant: the_grill

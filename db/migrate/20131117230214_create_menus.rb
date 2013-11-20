@@ -8,5 +8,7 @@ class CreateMenus < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    remove_column :restaurants, :menu_file, :string
   end
 end

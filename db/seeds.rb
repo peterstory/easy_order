@@ -26,8 +26,7 @@ b_zone = Restaurant.create({name: 'Burrito Zone', description: 'We serve decent 
                             cuisine: 'Mexican', street1: '404 Main Street', 
                             street2: 'Basement Room 5', city: 'Boston', state: 'MA', 
                             zipcode: '01993', phone: '978-123-4567', fax: '978-321-9876', 
-                            url: 'www.burritozone.com', delivers: true, delivery_charge: 2.99, 
-                            menu_file: 'C:\TOP_SECRET\Burrito.pdf'})
+                            url: 'www.burritozone.com', delivers: true, delivery_charge: 2.99 })
 b_paradise = Restaurant.create({name: 'Burrito Paradise', description: 'The ULTIMATE burritos.',
                                 cuisine: 'Mexican', street1: '101 Main Street', 
                                 city: 'Boston', state: 'MA', 
@@ -38,6 +37,13 @@ p_palace = Restaurant.create({name: 'Pizza Palace', description: 'We have pizzas
                               city: 'Salem', state: 'MA', 
                               zipcode: '01970', phone: '978-222-4567',
                               url: 'www.pizzapalace.com'})
+
+b_zone_menu = Menu.create({name: 'Burrito Zone Menu', content_type: 'image/png', 
+                           data: File.open("#{::Rails.root.to_s}/test/fixtures/binaries/ImageMenu.png", 'rb').read, 
+                           restaurant_id: b_zone.id })
+b_paradise_menu = Menu.create({name: 'Burrito Zone Menu', content_type: 'application/pdf', 
+                               data: File.open("#{::Rails.root.to_s}/test/fixtures/binaries/PDFMenu.png", 'rb').read, 
+                               restaurant_id: b_zone.id })
 
 b_zone_order = Order.create({restaurant_id: b_zone.id, organizer_id: peter.id, 
                              type: 'delivery', total: 0.0, status: 'pending', 
