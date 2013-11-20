@@ -54,7 +54,7 @@
           <dd><%= link_to restaurant.url, url %></dd>
         <% if restaurant.menu%>
         <dt>Menu:</dt>
-          <dd><%= link_to "Download", restaurant_menu_path(restaurant.id) %></dd>
+          <dd><%= link_to restaurant.menu.name, restaurant_menu_path(restaurant.id) %></dd>
         <% end %>
       </dl>
     </div>

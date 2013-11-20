@@ -73,7 +73,7 @@
     <% if /^image/.match @restaurant.menu.content_type %>
       <%= image_tag(restaurant_menu_path(@restaurant.id), class: "menu") %>
     <% else %>
-      <%= link_to "Download", restaurant_menu_path(@restaurant.id) %>
+      <%= link_to @restaurant.menu.name, restaurant_menu_path(@restaurant.id) %>
     <% end %>
   <% else %>
     Not available

@@ -38,12 +38,15 @@ p_palace = Restaurant.create({name: 'Pizza Palace', description: 'We have pizzas
                               zipcode: '01970', phone: '978-222-4567',
                               url: 'www.pizzapalace.com'})
 
-b_zone_menu = Menu.create({name: 'Burrito Zone Menu', content_type: 'image/png', 
+b_zone_menu = Menu.create({name: 'Burrito Zone.png', content_type: 'image/png', 
                            data: File.open("#{::Rails.root.to_s}/test/fixtures/binaries/ImageMenu.png", 'rb').read, 
                            restaurant_id: b_zone.id })
-b_paradise_menu = Menu.create({name: 'Burrito Zone Menu', content_type: 'application/pdf', 
-                               data: File.open("#{::Rails.root.to_s}/test/fixtures/binaries/PDFMenu.png", 'rb').read, 
-                               restaurant_id: b_zone.id })
+b_paradise_menu = Menu.create({name: 'Burrito Paradise Menu.pdf', content_type: 'application/pdf', 
+                               data: File.open("#{::Rails.root.to_s}/test/fixtures/binaries/PDFMenu.pdf", 'rb').read, 
+                               restaurant_id: b_paradise.id })
+p_palace_menu = Menu.create({name: 'Pizza Palace.png', content_type: 'image/png', 
+                              data: File.open("#{::Rails.root.to_s}/test/fixtures/binaries/ImageMenu.png", 'rb').read, 
+                              restaurant_id: p_palace.id })
 
 b_zone_order = Order.create({restaurant_id: b_zone.id, organizer_id: peter.id, 
                              type: 'delivery', total: 0.0, status: 'pending', 
