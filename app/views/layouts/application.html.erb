@@ -16,7 +16,13 @@
       <li><%= link_to "Restaurants", restaurants_path %></li>
       <li><%= link_to "Orders", orders_path %></li>
       <li><a href="/">Account</a></li>
-      <li><a href="/">Sign In</a></li>
+      <li>
+        <% if session[:user_id] %>
+          <%= link_to "Sign Out", logout_path, method: :delete %>
+        <% else %>
+          <%= link_to "Sign In", login_path %>
+        <% end %>
+      </li>
     </ul>
   </div>
 </nav>
