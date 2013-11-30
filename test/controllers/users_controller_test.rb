@@ -18,24 +18,23 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should create user" do
     assert_difference('User.count') do
-      post :create, user: { email: @user.email, name: @user.name, 
-                            password: @user.password, 
-                            password_confirmation: @user.password, 
+      post :create, user: { email: @user.email, name: @user.name + "Jr. ", 
+                            password: "example password", 
+                            password_confirmation: "example password", 
                             role: @user.role }
     end
 
-    assert_redirected_to user_path(assigns(:user))
+    assert_redirected_to users_path
   end
 
   test "should fail to create user" do
     # Passwords should be required to match
-    assert_no_difference('User.count') do
+    assert_no_difference('User.count', "password and confirmation must match") do
       post :create, user: { email: @user.email, name: @user.name, 
                             password: 'valid', 
                             password_confirmation: 'invalid', 
                             role: @user.role }
     end
-    
     # We shouldn't be redirected
     assert_template :new, "user should be prompted for further edits"
   end
@@ -52,7 +51,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should update user" do
     patch :update, id: @user, user: { email: @user.email, name: @user.name, password: @user.password, role: @user.role }
-    assert_redirected_to user_path(assigns(:user))
+    assert_redirected_to users_path
   end
 
   test "should destroy user" do

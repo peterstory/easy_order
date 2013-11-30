@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to users_url, notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
         @friends = user_params[:friends]  # Replace with simple names and IDs
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
     
     respond_to do |format|
       if @user.update(checked_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to users_url, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         @friends = user_params[:friends]

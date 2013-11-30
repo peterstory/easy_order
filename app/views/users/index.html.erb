@@ -1,5 +1,9 @@
 <% append_title('Users') %>
 
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+
 <%= button_to 'Add User', new_user_path, method: :get %>
 
 <table>
