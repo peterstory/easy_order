@@ -3,29 +3,29 @@
 valid:
   name: Valid User
   email: valid@test.co.uk
-  password: SuperGoodPassword
+  password_digest: <%= BCrypt::Password.create('SuperGoodPassword') %>
   role: admin
 
 invalid:
   name: Invalid User
   email: a.invalid.a
-  password: BadPassword
+  password_digest: <%= BCrypt::Password.create('BadPassword') %>
   role: not good
 
 bill:
   name: Mr. Bill
   email: mrbill@yahoo.com
-  password: iamsogoodatlife
+  password_digest: <%= BCrypt::Password.create('iamsogoodatlife') %>
   role: user
 
 bob:
   name: Billy Bob
   email: billybob@gmail.com
-  password: yodawgwhatsup
+  password_digest: <%= BCrypt::Password.create('yodawgwhatsup') %>
   role: user
 
 ted:
   name: Teddy Bear
   email: ted@aol.com
-  password: fancypants
+  password_digest: <%= BCrypt::Password.create('fancypants') %>
   role: user

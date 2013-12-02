@@ -5,6 +5,7 @@ class OrdersControllerTest < ActionController::TestCase
     @order = orders(:valid)
     @invalid_order = orders(:invalid)
     @grill_order = orders(:grill_order)
+    login users(:valid).id
   end
 
   test "should get index" do

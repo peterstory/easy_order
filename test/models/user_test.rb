@@ -7,7 +7,8 @@ class UserTest < ActiveSupport::TestCase
   end
   
   test "a known good user should validate" do
-    assert @user.valid?
+    valid_user = User.new({name: @user.name + " Jr.", password: 'test', password_confirmation: 'test', email: @user.email, role: @user.role})
+    assert valid_user.valid?
   end
 
   test "a known bad user should not validate" do
@@ -25,7 +26,7 @@ class UserTest < ActiveSupport::TestCase
   
   test "user email attribute must be properly formatted" do
     # Mess with the known good user
-    user = User.new({name: @user.name, password: @user.password, email: @user.email, role: @user.role})
+    user = User.new({name: @user.name + " Jr.", password: 'test', password_confirmation: 'test', email: @user.email, role: @user.role})
     assert user.valid?
 
     # Now, try an email without a username
@@ -57,7 +58,7 @@ class UserTest < ActiveSupport::TestCase
   
   test "user role attribute must be valid" do
     # Mess with the known good user
-    user = User.new({name: @user.name, password: @user.password, email: @user.email, role: @user.role})
+    user = User.new({name: @user.name + " Jr.", password: 'test', password_confirmation: 'test', email: @user.email, role: @user.role})
     assert user.valid?
     
     # Make sure there are valid roles
@@ -69,5 +70,11 @@ class UserTest < ActiveSupport::TestCase
       user.role = role
       assert user.valid?, "valid role '#{user.role}' should be accepted"
     end
+  end
+  
+  test "user name must be unique" do 
+    # Use the known good user, who is already in the database
+    user = User.new({name: @user.name, password: 'test', password_confirmation: 'test', email: @user.email, role: @user.role})
+    assert user.invalid?, "user name uniqueness should be enforced"
   end
 end

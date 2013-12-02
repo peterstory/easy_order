@@ -7,13 +7,17 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 peter = User.create({name: 'Peter Story', email: 'peter.story@gordon.edu', 
-                     password: 'wicked_insecure123', role: 'admin'})
+                     password: 'wicked_insecure123', password_confirmation: 'wicked_insecure123', 
+                     role: 'admin'})
 craig = User.create({name: 'Craig Story', email: 'craig.story@gordon.edu',
-                     password: 'master_password', role: 'user'})
+                     password: 'master_password', password_confirmation: 'master_password',
+                     role: 'user'})
 bjork = User.create({name: 'Russell Bjork', email: 'Russell.Bjork@gordon.edu',
-                     password: 'top_secret', role: 'user'})
+                     password: 'top_secret', password_confirmation: 'top_secret', 
+                     role: 'user'})
 miner = User.create({name: 'Simon Miner', email: 'simon.miner@gmail.com',
-                     password: 'thebestpassword', role: 'user'})
+                     password: 'thebestpassword', password_confirmation: 'thebestpassword',
+                     role: 'user'})
 
 friendships = Friendship.create([{user_id: peter.id, friend_id: craig.id},
                                  {user_id: craig.id, friend_id: peter.id},

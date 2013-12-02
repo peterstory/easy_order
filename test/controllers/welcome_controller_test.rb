@@ -6,9 +6,10 @@ class WelcomeControllerTest < ActionController::TestCase
     assert_response :success
   end
   
+  # There should be a link in the navigation bar, and in the call to action
   test "should link to signup page" do
     get :index
-    assert_select "a[href='/users/new']", 1, "Expected a link to the signup page"
+    assert_select "a[href='/users/new']", 2, "Expected two links to the signup page"
   end
 
 end

@@ -1,5 +1,9 @@
 <% append_title('Orders') %>
 
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+
 <%= button_to 'Add Order', new_order_path, method: :get %>
 
 <table>
@@ -34,9 +38,9 @@
         <td><%= number_to_currency order.total %></td>
         <td><%= order.status %></td>
         <td><%= l order.placed_at, format: :long %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: "Are you sure you want to destroy order ##{order.id}?" } %></td>
+        <td><%= link_to 'Show', order if (is_admin? || is_participant?(order.id))%></td>
+        <td><%= link_to 'Edit', edit_order_path(order) if (is_admin? || is_owner?(order.id)) %></td>
+        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: "Are you sure you want to destroy order ##{order.id}?" } if (is_admin? || is_owner?(order.id)) %></td>
       </tr>
     <% end %>
   </tbody>

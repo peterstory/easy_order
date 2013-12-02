@@ -1,6 +1,8 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  helper_method :sort_column, :sort_direction, :only_for_user
+  before_action :authorize_admin_or_owner, only: [:edit, :update, :destroy]
+  before_action :authorize_admin_or_participant, only: [:show]
+  helper_method :sort_column, :sort_direction, :only_for_user, :is_owner?, :is_item_owner?, :is_participant?
 
   # GET /orders
   # GET /orders.json
@@ -41,12 +43,8 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    checked_params = order_params
-    if checked_params[:participating_users]
-      checked_params[:participating_users].delete ""
-      checked_params[:participating_users] = checked_params[:participating_users].map { |id| User.find(id) }
-    end
-    
+    checked_params = check_order_params
+        
     @order = Order.new(checked_params)
     
     respond_to do |format|
@@ -66,11 +64,7 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
-    checked_params = order_params
-    if checked_params[:participating_users]
-      checked_params[:participating_users].delete ""
-      checked_params[:participating_users] = checked_params[:participating_users].map { |id| User.find(id) }
-    end
+    checked_params = check_order_params
     
     respond_to do |format|
       if @order.update(checked_params)
@@ -109,9 +103,35 @@ class OrdersController < ApplicationController
         participating_users: [])
     end
     
+    # Perform additional massaging of parameters
+    def check_order_params
+      checked_params = order_params
+    
+      # Unless you're an admin, replace the organizer_id with your own user_id
+      unless is_admin?
+        checked_params[:organizer_id] = session[:user_id]
+      end
+      
+      # Don't allow checked_params to be nil, or our following code will explode
+      checked_params[:participating_users] = [] if checked_params[:participating_users].nil?
+      # Make sure the organizer is also a participant
+      unless checked_params[:participating_users].include?(checked_params[:organizer_id])
+        checked_params[:participating_users].push(checked_params[:organizer_id])
+      end
+    
+      # Replace user IDs with User objects
+      if checked_params[:participating_users]
+        checked_params[:participating_users].delete ""
+        checked_params[:participating_users] = checked_params[:participating_users].map { |id| User.find(id) }
+      end
+      
+      return checked_params
+    end
+    
     def load_select_options
       @all_restaurants = Restaurant.all.map { |restaurant| [restaurant.name, restaurant.id] }
-      @all_users = User.all.map { |user| [user.name, user.id] }      
+      @all_users = User.all.map { |user| [user.name, user.id] }
+      @user_name = User.find(session[:user_id]).name
       @all_types = Order.valid_types
       @all_statuses = Order.valid_statuses
     end
@@ -134,5 +154,33 @@ class OrdersController < ApplicationController
     
     def only_for_user
       params[:user_id]
+    end
+    
+    # Only allow the edits if they are being made by an admin or 
+    # the owner of the account
+    def authorize_admin_or_owner
+      unless (is_admin? || is_owner?)
+        redirect_to orders_path, notice: "Operation not permitted by other users"
+      end
+    end
+    
+    def authorize_admin_or_participant
+      unless (is_admin? || is_participant?)
+        redirect_to orders_path, notice: "Operation not permitted by other users"
+      end
+    end
+    
+    def is_owner?(order_id = params[:id])
+      Order.find(order_id).organizer.id.to_i == session[:user_id].to_i
+    end
+    
+    # Is the user the owner of the line item?
+    # Copy of is_owner? from line_items_controller.rb
+    def is_item_owner?(line_item_id = params[:id])
+      LineItem.find(line_item_id).participant.user.id.to_i == session[:user_id].to_i
+    end
+    
+    def is_participant?(order_id = params[:id])
+      Order.find(order_id).participating_users.include?(User.find(session[:user_id]))
     end
 end
