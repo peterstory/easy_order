@@ -25,4 +25,5 @@ module ApplicationHelper
       link_to title, {sort: column, direction: direction, user_id: only_for_user}, {class: css_class}
     end
   end
+
 end

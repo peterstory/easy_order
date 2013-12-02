@@ -1,9 +1,13 @@
 <% if flash[:alert] %>
   <p id="notice"><%= flash[:alert] %></p>
 <% end %>
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+
 <%= form_tag do %>
   <fieldset>
-    <legend>Administrator Log In</legend>
+    <legend>Log In</legend>
     <div>
       <%= label_tag :name, "Name:" %>
       <%= text_field_tag :name, params[:name] %>

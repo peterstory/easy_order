@@ -5,6 +5,7 @@ class LineItemsControllerTest < ActionController::TestCase
     @line_item = line_items(:valid)
     @order = @line_item.order
     @invalid_line_item = line_items(:invalid)
+    login users(:valid).id
   end
 
   # Line items are only viewable in the context of their order, so 

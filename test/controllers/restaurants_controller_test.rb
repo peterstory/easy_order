@@ -6,6 +6,7 @@ class RestaurantsControllerTest < ActionController::TestCase
     @invalid_restaurant = restaurants(:invalid)
     @restaurant_with_menu = restaurants(:the_grill)
     @menu = menus(:valid)
+    login users(:valid).id
   end
 
   test "should get index" do

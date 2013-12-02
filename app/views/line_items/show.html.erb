@@ -25,5 +25,7 @@
   <%= @line_item.notes %>
 </p>
 
+<% if is_owner? || is_admin? %>
 <%= link_to 'Edit', edit_order_line_item_path(@order, @line_item) %> |
+<% end %>
 <%= link_to 'Back', @order %>

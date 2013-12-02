@@ -11,9 +11,16 @@ class User < ActiveRecord::Base
     dependent: :destroy
   
   has_many :participants, dependent: :destroy
+  # The orders in which the user participates
   has_many :orders, through: :participants,
     foreign_key: 'order_id',
     class_name: 'Order'
+    
+  # The orders of which the user is the organizer
+  has_many :organized_orders, 
+    foreign_key: 'organizer_id',
+    class_name: 'Order',
+    dependent: :destroy
     
   # Validations
   validates :name, presence: true, uniqueness: true

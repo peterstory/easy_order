@@ -31,9 +31,10 @@
       <% line_items.each do |line_item| %>
       <li class="line_item">
         <%= line_item.name %>, <%= number_to_currency line_item.price %>
-        <%= link_to 'Show', [@order, line_item] %>, 
-        <%= link_to 'Edit', [:edit, @order, line_item] %>, 
-        <%= link_to 'Destroy', [@order, line_item], method: :delete, data: { confirm: "Are you sure you want to destroy line item '#{line_item.name}'?" } %></td>
+        <%= link_to 'Show', [@order, line_item] %><% if (is_admin? || is_item_owner?(line_item.id)) %>,
+          <%= link_to 'Edit', [:edit, @order, line_item] %>, 
+          <%= link_to 'Destroy', [@order, line_item], method: :delete, data: { confirm: "Are you sure you want to destroy line item '#{line_item.name}'?" } %></td>
+        <% end %>
         
       </li>
       <% end %>
@@ -68,5 +69,7 @@
 </div>
 </div>
 
+<% if is_admin? || is_owner?(@order.id) %>
 <%= link_to 'Edit', edit_order_path(@order) %> |
+<% end %>
 <%= link_to 'Back', orders_path %>

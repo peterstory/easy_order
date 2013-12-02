@@ -10,6 +10,14 @@ class ActiveSupport::TestCase
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
   fixtures :all
+  
+  # Duplicates of the versions in application_controller.rb
+  def login(user_id)
+    session[:user_id] = user_id
+  end
+  def logout
+    session[:user_id] = nil
+  end
 
   # Add more helper methods to be used by all tests here...
 end

@@ -3,6 +3,7 @@ require 'test_helper'
 class UsersControllerTest < ActionController::TestCase
   setup do
     @user = users(:valid)
+    login @user.id
   end
 
   test "should get index" do
@@ -29,7 +30,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should fail to create user" do
     # Passwords should be required to match
-    assert_no_difference('User.count', "password and confirmation must match") do
+    assert_no_difference('User.count') do
       post :create, user: { email: @user.email, name: @user.name, 
                             password: 'valid', 
                             password_confirmation: 'invalid', 
@@ -59,7 +60,9 @@ class UsersControllerTest < ActionController::TestCase
       delete :destroy, id: @user
     end
 
-    assert_redirected_to users_path
+    # We should be logged out
+    assert_equal session[:user_id], nil
+    assert_redirected_to root_path
   end
   
   test "role options should be populated" do
@@ -85,6 +88,51 @@ class UsersControllerTest < ActionController::TestCase
         assert_select "select#user_friends option[selected=selected][value=" + friend.id.to_s +  "]", 1, "Expected friend to be preselected"
       end
     end
+  end
+  
+  # Additional tests, verifying role-based access controls
+  test "new user can create an account" do
+    logout
+    
+    # Get account creation form
+    get :new
+    assert_response :success, "new user cannot load account creation form"
+    
+    # Create account
+    assert_difference('User.count') do
+      post :create, user: { email: @user.email, name: @user.name + "Jr. ", 
+                            password: "example password", 
+                            password_confirmation: "example password", 
+                            role: @user.role }
+    end
+    assert_redirected_to users_path, "new user not properly redirected"
+  end
+  
+  test "standard user disallowed features" do
+    # Log in standard user
+    user = users(:bill)
+    login user.id
+    
+    # Attempt creation of additional account
+    get :new
+    assert_redirected_to users_path
+    assert flash[:notice] == "Operation not permitted by non-admin"
+    post :create
+    assert_redirected_to users_path
+    assert flash[:notice] == "Operation not permitted by non-admin"
+    
+    # Attempt edit of another user
+    get :edit, id: @user.id
+    assert_redirected_to users_path
+    assert flash[:notice] == "Operation not permitted by other users"
+    patch :update, id: @user.id
+    assert_redirected_to users_path
+    assert flash[:notice] == "Operation not permitted by other users"
+    
+    # Attempt deletion of another user
+    delete :destroy, id: @user
+    assert_redirected_to users_path
+    assert flash[:notice] == "Operation not permitted by other users"
   end
   
 end
