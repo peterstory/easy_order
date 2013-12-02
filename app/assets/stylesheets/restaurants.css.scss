@@ -8,14 +8,16 @@
   padding-left: 0px;
 }
 .restaurant {
-  clear: both;
-  border: 1px solid gray;
+  float: left;
+  box-shadow: 0px 2px 3px #888888;
   background-color: #FFF5D5;
-  width: 50%;
+  width: 45%;
   border-radius: 10px;
   margin-top: 5px; 
   margin-bottom: 10px; 
   overflow: hidden;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .restaurant .info {
   padding: 10px;
@@ -30,7 +32,7 @@
   font-size: 12px;
   text-align: center;
   padding: 3px;
-  border-top: 1px solid gray;
+  border-top: 1px solid #BBB;
 }
 .restaurant .options .option {
   margin-left: 5px;
@@ -40,12 +42,10 @@
   color: black;
 }
 .view_by {
-  float: right;
   margin-right: 50%;
   margin-bottom: 3px;
 }
 .search {
-	float: left;
 	margin-bottom: 3px;
 }
 input#restaurant_name, input#restaurant_street1, input#restaurant_street2, input#restaurant_url, input#restaurant_email {
@@ -83,7 +83,7 @@ img.menu {
 	margin-bottom: 200px;
 	font-size: 18pt;
 	text-align: center;
-	border: 1px solid gray;
+	box-shadow: 0px 2px 3px #888888;
 	background-color: #FFF5D5;
 	border-radius: 10px;
 	width: 50%;

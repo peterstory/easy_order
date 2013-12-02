@@ -2,27 +2,25 @@
 
 <%= button_to 'Add Restaurant', new_restaurant_path, method: :get %>
 
+<div class="view_by">
+  Sort by: <%= sortable 'name' %>
+           <%= sortable 'delivers', 'Delivery' %>
+</div>
+<div class="search">
+  Filter by: 
+  <%= select "search", "cuisine", (@all_cuisines.unshift "- cuisine -") %>
+  <%= select "search", "city", (@all_cities.unshift "- city -") %>
+  <%= select "search", "state", (@all_states.unshift "- state -") %>
+  <script>
+  $(document).ready(function() {
+    $("#search_cuisine").on("change", restaurantSearch);
+    $("#search_city").on("change", restaurantSearch);
+    $("#search_state").on("change", restaurantSearch);
+  });
+  </script>
+</div>
+
 <ul class="restaurant_list">
-  <li>
-    <div class="view_by">
-      Sort by: <%= sortable 'name' %>
-               <%= sortable 'delivers', 'Delivery' %>
-    </div>
-    <div class="search">
-      Filter by: 
-      <%= select "search", "cuisine", (@all_cuisines.unshift "- cuisine -") %>
-      <%= select "search", "city", (@all_cities.unshift "- city -") %>
-      <%= select "search", "state", (@all_states.unshift "- state -") %>
-      <script>
-      $(document).ready(function() {
-        $("#search_cuisine").on("change", restaurantSearch);
-        $("#search_city").on("change", restaurantSearch);
-        $("#search_state").on("change", restaurantSearch);
-      });
-      </script>
-    </div>
-  </li>
-  
   <% @restaurants.each do |restaurant| %>
   <li class="restaurant" data='{"cuisine" : "<%= restaurant.cuisine %>", "city" : "<%= restaurant.city %>", "state" : "<%= restaurant.state %>"}'>
     <div class="info">

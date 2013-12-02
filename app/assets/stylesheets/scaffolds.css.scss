@@ -4,7 +4,8 @@ body {
   margin-right: 0px;
   background-color: #FFFFE4;
   min-width: 640px;
-  font-family: "Times New Roman", "Times", serif;
+  font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+  font-size: 11pt;
 }
 
 // Styling for navigation bar
@@ -16,7 +17,7 @@ nav {
   min-width: 640px;
   background-color: #FFCC66; 
   vertical-align: middle;
-  border-bottom: 2px solid black;
+  box-shadow: 0px 2px 3px #888888;
 }
 nav a {
   color: black;
@@ -32,12 +33,12 @@ nav em {
   font-weight: bold;
 }
 #logo, #links, h1, h2, .restaurant .options, .button {
-  font-family: "Helvetica", "Arial", sans-serif;
+  font-family: 'Roboto Slab', 'Georgia', serif;
 }
 #logo {
   font-size: 28pt;
   position: absolute;
-  top: 7px;
+  top: 2px;
   left: 10px;
 }
 #links {
@@ -50,10 +51,10 @@ nav em {
 // Styling for headings
 h1 {
   font-weight: normal;
-  padding: 2px;
+  padding: 5px;
   margin-top: 50px;
   background-color: #FFE4A3;
-  border: 1px solid gray;
+  box-shadow: 0px 2px 3px #888888;
 }
 h2 {
   font-weight: normal;
@@ -76,6 +77,7 @@ input[type="button"], input[type="submit"] {
   border-radius: 4px;
   font-size: 16pt;
   font-weight: bold;
+  font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
   padding: 1px 8px;
   margin-bottom:10px;
 }
@@ -104,7 +106,6 @@ th .desc {
 table {
   clear: left;
   border-collapse: collapse;
-  font-family: sans-serif;
 }
 table a {
   color: black;
@@ -154,6 +155,7 @@ footer {
   margin-top: 20px;
   font-size: 85%;
   text-align: center;
+  clear: both;
 }
 
 // The following was automatically generated during scaffolding

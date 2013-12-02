@@ -30,19 +30,19 @@ ActiveRecord::Schema.define(version: 20131117230214) do
     t.datetime "updated_at"
   end
 
-  add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
-  add_index "line_items", ["participant_id"], name: "index_line_items_on_participant_id", using: :btree
+  add_index "line_items", ["order_id"], name: "index_line_items_on_order_id"
+  add_index "line_items", ["participant_id"], name: "index_line_items_on_participant_id"
 
   create_table "menus", force: true do |t|
     t.string   "name"
     t.string   "content_type"
-    t.binary   "data",          limit: 2147483647
+    t.binary   "data",          limit: 52428800
     t.integer  "restaurant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "menus", ["restaurant_id"], name: "index_menus_on_restaurant_id", using: :btree
+  add_index "menus", ["restaurant_id"], name: "index_menus_on_restaurant_id"
 
   create_table "orders", force: true do |t|
     t.integer  "restaurant_id", null: false
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20131117230214) do
     t.datetime "updated_at"
   end
 
-  add_index "orders", ["restaurant_id"], name: "index_orders_on_restaurant_id", using: :btree
+  add_index "orders", ["restaurant_id"], name: "index_orders_on_restaurant_id"
 
   create_table "participants", force: true do |t|
     t.integer  "user_id"
@@ -66,8 +66,8 @@ ActiveRecord::Schema.define(version: 20131117230214) do
     t.datetime "updated_at"
   end
 
-  add_index "participants", ["order_id"], name: "index_participants_on_order_id", using: :btree
-  add_index "participants", ["user_id"], name: "index_participants_on_user_id", using: :btree
+  add_index "participants", ["order_id"], name: "index_participants_on_order_id"
+  add_index "participants", ["user_id"], name: "index_participants_on_user_id"
 
   create_table "restaurants", force: true do |t|
     t.string   "name",            null: false
