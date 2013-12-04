@@ -18,12 +18,13 @@ class SessionsControllerTest < ActionController::TestCase
     user = users(:valid)
     post :create, name: user.name, password: 'invalid'
     
-    assert_redirected_to login_url
+    assert_template 'new', "should stay on login page"
+    assert flash[:notice], "a message should be displayed"
   end
 
   test "should log out" do
     # First "log in"
-    session[:user_id] = users(:valid).id
+    login users(:valid).id
     
     # Now log out
     get :destroy

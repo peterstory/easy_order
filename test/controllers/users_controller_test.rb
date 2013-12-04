@@ -18,6 +18,8 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should create user" do
+    my_user_id = session[:user_id]
+    
     assert_difference('User.count') do
       post :create, user: { email: @user.email, name: @user.name + "Jr. ", 
                             password: "example password", 
@@ -26,6 +28,7 @@ class UsersControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to users_path
+    assert my_user_id == session[:user_id], "We should stay logged in as who we were before"
   end
 
   test "should fail to create user" do
@@ -133,6 +136,29 @@ class UsersControllerTest < ActionController::TestCase
     delete :destroy, id: @user
     assert_redirected_to users_path
     assert flash[:notice] == "Operation not permitted by other users"
+  end
+  
+  test "last admin should not be able to delete themselves" do
+    # Delete other admin
+    assert_difference('User.count', -1) do
+      delete :destroy, id: users(:ted).id
+    end
+    
+    # Attempt our deletion
+    assert_no_difference('User.count') do
+      delete :destroy, id: @user.id
+    end
+  end
+  
+  test "last admin should not be able to remove their privileges" do
+    # Delete other admin
+    assert_difference('User.count', -1) do
+      delete :destroy, id: users(:ted).id
+    end
+    
+    # Attempt to remove our privileges
+    patch :update, id: @user, user: { email: @user.email, name: @user.name, password: @user.password, role: "user" }
+    assert_template :edit, "We should be prompted for further edits"
   end
   
 end

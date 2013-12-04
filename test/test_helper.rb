@@ -18,6 +18,14 @@ class ActiveSupport::TestCase
   def logout
     session[:user_id] = nil
   end
+  def is_admin?
+    if session[:user_id]
+      user = User.find_by_id(session[:user_id])
+      return (( !!user ) && ( user.role == 'admin' ))
+    else
+      return false
+    end
+  end
 
   # Add more helper methods to be used by all tests here...
 end

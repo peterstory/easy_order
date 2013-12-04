@@ -115,4 +115,18 @@ class OrdersControllerTest < ActionController::TestCase
     assert_select "li.line_item", @grill_order.line_items.count, "Expected all line items for the order to be displayed"
   end
   
+  test "non-admin users should only see orders in which they are participating" do
+    User.all.each do |user|
+      login user.id      
+      get :index
+      
+      if is_admin?
+        # The "+ 1" is for the header row
+        assert_select "table tr", Order.count + 1, "Admins should see all orders"
+      else
+        # The "+ 1" is for the header row
+        assert_select "table tr", user.orders.count + 1, "Non-admins should only see the orders in they participate in"
+      end
+    end
+  end
 end

@@ -33,10 +33,12 @@
     <%= f.label :password_confirmation, "Confirm Password *" %><br>
     <%= f.password_field :password_confirmation %>
   </div>
+  <% if is_admin? %>
   <div class="field">
     <%= f.label :role, "Role *" %><br>
     <%= f.select :role, @all_roles, {include_blank: true} %>
   </div>
+  <% end %>
   <div class="field">
     <%= f.label :friends, "Friends" %><br>
     <%= f.select(:friends, options_for_select(@all_users, @friends), {}, {multiple: true}) %>

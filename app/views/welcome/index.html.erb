@@ -39,5 +39,7 @@
     <li>Specifying a default payment option.</li>
     <li>Supplying a default delivery address.</li>
   </ol>
+  <% unless is_logged_in? %>
   <%= link_to "Get started", new_user_path %> now! 
+  <% end %>
 </div>

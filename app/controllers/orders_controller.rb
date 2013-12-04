@@ -7,12 +7,19 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    user_id = only_for_user
-    unless user_id
-      @orders = Order.order(sort_column + " " + sort_direction).
-        includes([:restaurant, :organizer, :participants => :user])
+    if is_admin?
+      # Admins can narrow their search, but will otherwise see all orders
+      user_id = only_for_user
+      unless user_id
+        @orders = Order.order(sort_column + " " + sort_direction).
+          includes([:restaurant, :organizer, :participants => :user])
+      else
+        @orders = User.find(user_id).orders.order(sort_column + " " + sort_direction).
+          includes(:restaurant, :organizer, :participants => :user)
+      end
     else
-      @orders = User.find(user_id).orders.order(sort_column + " " + sort_direction).
+      # Regular users can only see the orders in which they participate
+      @orders = User.find(session[:user_id]).orders.order(sort_column + " " + sort_direction).
         includes(:restaurant, :organizer, :participants => :user)
     end
   end

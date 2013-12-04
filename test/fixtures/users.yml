@@ -28,4 +28,4 @@ ted:
   name: Teddy Bear
   email: ted@aol.com
   password_digest: <%= BCrypt::Password.create('fancypants') %>
-  role: user
+  role: admin
