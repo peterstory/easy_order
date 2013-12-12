@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :menu, :edit, :update, :destroy]
   before_action :load_select_options, only: [:index, :new, :create, :edit, :update]
-  helper_method :sort_column, :sort_direction
+  helper_method :sort_column, :sort_direction, :map_url
 
   # GET /restaurants
   # GET /restaurants.json
@@ -104,6 +104,21 @@ class RestaurantsController < ApplicationController
       @all_cities.uniq!
       @all_states = Restaurant.select(:state).map{ |state| state[:state] }
       @all_states.uniq!
+    end
+    
+    def map_url
+      url = "http://maps.googleapis.com/maps/api/staticmap?size=512x400&sensor=false"
+      
+      # Add map center
+      location = @restaurant.street1
+      location += " " + @restaurant.street2 if @restaurant.street2
+      location += " " + @restaurant.city + " " + @restaurant.state
+      url += "&center=" + CGI::escape(location)
+      
+      # Add marker
+      url += "&markers=" + CGI::escape(location)
+      
+      return url
     end
     
     def sort_column

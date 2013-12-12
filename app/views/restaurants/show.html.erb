@@ -17,14 +17,18 @@
   <%= @restaurant.cuisine %>
 </p>
 
-<p>
-  <strong>Street1:</strong>
-  <%= @restaurant.street1 %>
-</p>
+<div class="map">
+  <strong>Map:</strong><br/>
+  <%= image_tag map_url %>
+</div>
 
 <p>
-  <strong>Street2:</strong>
+  <strong>Street:</strong>
+  <%= @restaurant.street1 %>
+  <% if @restaurant.street2 && !@restaurant.street2.blank? %>
+  <br />
   <%= @restaurant.street2 %>
+  <% end %>
 </p>
 
 <p>

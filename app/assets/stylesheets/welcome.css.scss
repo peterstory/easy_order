@@ -5,14 +5,26 @@
 section.homepage {
   width: 85%;
 }
-img {
+.images {
   float: right;
   margin-left: 5px;
   margin-bottom: 20px;
 }
-.pizza {
+@media screen and (max-width: 465px) {
+  .images {
+    display: block;
+    float: none;
+    margin: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 310px;
+  }
+  .images.pizza {
+    width: 280px;
+  }
+}
+img.pizza {
   border: 1px solid gray;
-  margin-bottom: 20px;
 }
 .subsection {
   clear: right;

@@ -3,7 +3,6 @@ body {
   margin-left: 0px;
   margin-right: 0px;
   background-color: #FFFFE4;
-  min-width: 640px;
   font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
   font-size: 11pt;
 }
@@ -14,7 +13,6 @@ nav {
   top: 0px;
   height: 55px;
   width: 100%;
-  min-width: 640px;
   background-color: #FFCC66; 
   vertical-align: middle;
   box-shadow: 0px 2px 3px #888888;
@@ -47,6 +45,35 @@ nav em {
   top: 27px;
   right: 10px;
 }
+@media screen and (max-width: 710px) {
+  #logo {
+    font-size: 25pt;
+  }
+  nav {
+    height: 70px;
+    min-width: 350px;
+  }
+  nav li {
+    margin-left: 6px;
+  }
+  #links {
+    font-size: 14pt;
+    position: inline;
+    width: 100%;
+    top: 0px;
+  }
+  #links .extra {
+    position: absolute;
+    top: 23px;
+    right: 0px;
+  }
+  #links .account {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+}
+
 
 // Styling for headings
 h1 {
@@ -68,6 +95,11 @@ section {
   margin-left: auto;
   margin-right: auto;
   margin-top: 70px;
+}
+@media screen and (max-width: 710px) {
+  section {
+    margin-top: 78px;
+  }
 }
 
 // Pretty Buttons
