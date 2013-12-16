@@ -1,4 +1,5 @@
 class Participant < ActiveRecord::Base
+  
   # Set default value of "participant"
   after_initialize do
     if self.new_record?
@@ -9,7 +10,7 @@ class Participant < ActiveRecord::Base
   belongs_to :user
   belongs_to :participating_user, class_name: 'User', foreign_key: 'user_id'  # Same as above, clearly named
   belongs_to :order
-  has_many :line_items
+  has_many :line_items, dependent: :destroy
   
   #validates :order, presence: true  # Won't work, since an order is created after its participants
   validates :user, presence: true
@@ -18,5 +19,14 @@ class Participant < ActiveRecord::Base
     %w(organizer participant)
   end
   validates :role, presence: true, inclusion: { in: valid_roles, message: "'%{value}' is not a valid role" }
+  
+  def update_total
+    recalculated_total = 0
+    self.line_items.each do |line_item|
+      recalculated_total += line_item.price
+    end
+    self.total = recalculated_total
+    self.save
+  end
   
 end

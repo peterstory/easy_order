@@ -4,7 +4,7 @@ class Order < ActiveRecord::Base
   has_many :participants, dependent: :destroy
   has_many :participating_users, through: :participants
   
-  has_many :line_items, dependent: :destroy
+  has_many :line_items
   
   belongs_to :restaurant
   validates :restaurant, presence: true
@@ -24,4 +24,13 @@ class Order < ActiveRecord::Base
   validates :status, presence: true, inclusion: { in: valid_statuses, message: "'%{value}' is not a valid status"  }
   
   validates :placed_at, presence: true
+  
+  def update_total
+    recalculated_total = 0
+    self.line_items.each do |line_item|
+      recalculated_total += line_item.price
+    end
+    self.total = recalculated_total
+    self.save
+  end
 end

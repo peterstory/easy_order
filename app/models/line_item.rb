@@ -17,21 +17,13 @@ class LineItem < ActiveRecord::Base
     # Recalculate the participant's and order's totals
     def recalculate_totals
       # Update order's total
-      order = self.order
-      order_total = 0
-      order.line_items.each do |line_item|
-        order_total += line_item.price
+      if self.order
+        self.order.update_total
       end
-      order.total = order_total
-      order.save
       
       # Update participant's total
-      participant = self.participant
-      participant_total = 0
-      participant.line_items.each do |line_item|
-        participant_total += line_item.price
+      if self.participant
+        self.participant.update_total
       end
-      participant.total = participant_total
-      participant.save
     end
 end
