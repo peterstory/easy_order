@@ -149,4 +149,9 @@ class RestaurantsControllerTest < ActionController::TestCase
     get :edit, id: @restaurant
     assert_select "select#restaurant_cuisine option", (Restaurant.valid_cuisines.count + 1), "Expected number of valid cuisines, plus a blank option"
   end
+  
+  test "restaurant map should be loaded" do
+    get :show, id: @restaurant
+    assert_select ".map img", 1, "Map should be loaded"
+  end
 end

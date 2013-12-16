@@ -47,14 +47,12 @@
   </div>
   <div class="field">
     <%= f.label "Placed at *" %><br>
-    <div class="regular-datepicker">
+    <% unless is_on_mobile? %>
       <%= f.datetime_select :placed_at %>
-    </div>
-    <div class="html5-datepicker">
+    <% else %>
       <input type="date" name="order[placed_at_date]" value="<%= @time.strftime("%Y-%m-%d") %>" />
       <input type="time" name="order[placed_at_time]" value="<%= @time.strftime("%H:%M") %>" />
-    </div>
-
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>

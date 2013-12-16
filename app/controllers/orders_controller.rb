@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_time, only: [:new, :create, :edit, :update]
   before_action :authorize_admin_or_owner, only: [:edit, :update, :destroy]
   before_action :authorize_admin_or_participant, only: [:show]
-  helper_method :sort_column, :sort_direction, :only_for_user, :is_owner?, :is_item_owner?, :is_participant?
+  helper_method :sort_column, :sort_direction, :only_for_user, :is_owner?, :is_item_owner?, :is_participant?, :is_on_mobile?
 
   # GET /orders
   # GET /orders.json
@@ -216,5 +216,10 @@ class OrdersController < ApplicationController
     
     def is_participant?(order_id = params[:id])
       Order.find(order_id).participating_users.include?(User.find(session[:user_id]))
+    end
+    
+    def is_on_mobile?
+      agent = request.user_agent
+      (agent.match /Mobile/) || (agent.match /Android/)
     end
 end

@@ -1,17 +1,5 @@
 //= require ../../../vendor/assets/javascripts/date.format.js
 
-// If the user is on an iPhone, give them access to the HTML5 controls, 
-// and remove the old-style controls from the DOM
-$(document).ready(function() {
-  // Code from http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
-  var userAgent = window.navigator.userAgent;
-  
-  if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
-    $("div.regular-datepicker").remove();
-    $("div.html5-datepicker").removeClass("html5-datepicker");
-  }
-});
-
 // Start the order timer
 function startTimer(labelSelector, timerSelector, date) {
 	tickTimer(labelSelector, timerSelector, date);

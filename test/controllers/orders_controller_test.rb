@@ -129,4 +129,19 @@ class OrdersControllerTest < ActionController::TestCase
       end
     end
   end
+  
+  test "mobile devices should get HTML5 inputs" do
+    iPhoneAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B329 Safari/8536.25"
+    androidAgent = "Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Safari/535.19"
+    agents = [iPhoneAgent, androidAgent]
+    agents.each do |agent|
+      @request.user_agent = agent
+      get :new
+      assert_response :success
+    
+      assert_select "select#order_placed_at_1i", 0, "Desktop date picker shouldn't be displayed"
+      assert_select "input[type='date']", 1, "Mobile date picker should be displayed"
+      assert_select "input[type='time']", 1, "Mobile time picker should be displayed"
+    end
+  end
 end
