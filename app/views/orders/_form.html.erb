@@ -46,8 +46,15 @@
     <% end %>
   </div>
   <div class="field">
-    <%= f.label :placed_at, "Placed at *" %><br>
-    <%= f.datetime_select :placed_at %>
+    <%= f.label "Placed at *" %><br>
+    <div class="regular-datepicker">
+      <%= f.datetime_select :placed_at %>
+    </div>
+    <div class="html5-datepicker">
+      <input type="date" name="order[placed_at_date]" value="<%= @time.strftime("%Y-%m-%d") %>" />
+      <input type="time" name="order[placed_at_time]" value="<%= @time.strftime("%H:%M") %>" />
+    </div>
+
   </div>
   <div class="actions">
     <%= f.submit %>

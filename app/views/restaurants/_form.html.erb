@@ -44,27 +44,27 @@
     </div>
     <div class="field zip">
       <%= f.label :zipcode, "Zip *" %><br>
-      <%= f.text_field :zipcode %>
+      <%= f.number_field :zipcode %>
     </div>
   </fieldset>
   <div class="field">
     <%= f.label :phone, "Phone *" %><br>
-    <%= f.text_field :phone %>
+    <%= f.phone_field :phone %>
   </div>
   <div class="field">
     <%= f.label :fax %><br>
-    <%= f.text_field :fax %>
+    <%= f.phone_field :fax %>
   </div>
   <div class="field">
     <%= f.label :url, "URL *" %><br>
-    <%= f.text_field :url %>
+    <%= f.url_field :url %>
   </div>
   <div class="field">
     <%= f.label :delivers, "Delivery?" %>
     <%= f.check_box :delivers %>
     <div class="field delivery_charge">
       <%= f.label :delivery_charge, "Charge" %>
-      <%= f.text_field :delivery_charge %>
+      <%= f.number_field :delivery_charge %>
     </div>
   </div>
   <div class="field">

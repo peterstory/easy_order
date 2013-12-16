@@ -6,11 +6,16 @@
   clear: right;
   border: 1px solid gray;
   background-color: #FFF5D5;
-  width: 50%;
+  width: 70%;
   border-radius: 10px;
   margin-top: 5px; 
   margin-bottom: 10px; 
   overflow: hidden;
+}
+@media screen and (max-width: 575px) {
+  .order {
+    width: 98%;
+  }
 }
 .order .info {
   padding: 10px;
@@ -27,4 +32,7 @@
 }
 ul.line_items {
   margin: 0px;
+}
+div.html5-datepicker {
+  display: none;
 }

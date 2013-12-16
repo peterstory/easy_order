@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_time, only: [:new, :create, :edit, :update]
   before_action :authorize_admin_or_owner, only: [:edit, :update, :destroy]
   before_action :authorize_admin_or_participant, only: [:show]
   helper_method :sort_column, :sort_direction, :only_for_user, :is_owner?, :is_item_owner?, :is_participant?
@@ -102,12 +103,30 @@ class OrdersController < ApplicationController
     def set_order
       @order = Order.find(params[:id])
     end
+    
+    def set_time
+      if (action_name == "new")
+        @time = Time.now
+      elsif (action_name == "create") || (action_name == "update")
+        # Created from the params supplied by the HTML5 datepicker
+        # So, @time will be empty unless the user is on a mobile device
+        begin
+          time_from_params = params[:order][:placed_at_date].to_s + " " + params[:order][:placed_at_time].to_s
+          Rails.logger.info "!INFO! " + time_from_params
+          @time = Time.parse(time_from_params)
+        rescue ArgumentError
+          @time = Time.now
+        end
+      elsif (action_name == "edit")
+        @time = @order.placed_at.time
+      end
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     # Note that :total was removed, since we don't want that field to be directly editable
     def order_params
-      params.require(:order).permit(:restaurant_id, :organizer_id, :type, :status, :placed_at, 
-        participating_users: [])
+      params.require(:order).permit(:restaurant_id, :organizer_id, :type, :status, 
+        :placed_at, :placed_at_time, :placed_at_date, participating_users: [])
     end
     
     # Perform additional massaging of parameters
@@ -131,6 +150,14 @@ class OrdersController < ApplicationController
         checked_params[:participating_users].delete ""
         checked_params[:participating_users] = checked_params[:participating_users].map { |id| User.find(id) }
       end
+      
+      # If the user supplied the order time using :placed_at_time and :placed_at_date
+      unless checked_params[:placed_at]
+        checked_params[:placed_at] = 
+          checked_params[:placed_at_date].to_s + " " + checked_params[:placed_at_time].to_s
+      end
+      checked_params.delete :placed_at_time
+      checked_params.delete :placed_at_date
       
       return checked_params
     end
