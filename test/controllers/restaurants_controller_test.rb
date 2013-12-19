@@ -154,4 +154,22 @@ class RestaurantsControllerTest < ActionController::TestCase
     get :show, id: @restaurant
     assert_select ".map img", 1, "Map should be loaded"
   end
+  
+  test "restaurant map should be a link" do
+    get :show, id: @restaurant
+    assert_select ".map a", 1, "Map should be a link"
+  end
+  
+  test "restaurant map should link appropriately" do
+    iPhoneAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B329 Safari/8536.25"
+    androidAgent = "Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Safari/535.19"
+    
+    @request.user_agent = iPhoneAgent
+    get :show, id: @restaurant
+    assert_select ".map a[href=?]", /^https*:\/\/maps.apple.com.*/, 1, "On iPhone, map should link to Apple"
+    
+    @request.user_agent = androidAgent
+    get :show, id: @restaurant
+    assert_select ".map a[href=?]", /^https*:\/\/maps.google.com.*/, 1, "On Android, map should link to Google"
+  end
 end
