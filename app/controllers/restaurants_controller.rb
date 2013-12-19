@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :menu, :edit, :update, :destroy]
   before_action :load_select_options, only: [:index, :new, :create, :edit, :update]
-  helper_method :sort_column, :sort_direction, :map_url
+  helper_method :sort_column, :sort_direction, :map_url, :directions_url
 
   # GET /restaurants
   # GET /restaurants.json
@@ -119,6 +119,20 @@ class RestaurantsController < ApplicationController
       url += "&markers=" + CGI::escape(location)
       
       return url
+    end
+    
+    def directions_url
+      
+      if is_ios_device?
+        url = "http://maps.apple.com/"
+      else
+        url = "http://maps.google.com/"
+      end
+      
+      destination = @restaurant.street1
+      destination += " " + @restaurant.street2 if @restaurant.street2
+      destination += " " + @restaurant.city + " " + @restaurant.state
+      url += "?daddr=" + CGI::escape(destination)
     end
     
     def sort_column

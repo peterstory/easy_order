@@ -26,10 +26,4 @@ module ApplicationHelper
     end
   end
   
-  # Check whether the user is on a mobile device that supports HTML5 input forms, 
-  # specifically date and time pickers
-  def is_on_mobile?
-    agent = request.user_agent
-    (agent.match /Mobile/) || (agent.match /Android/)
-  end
 end

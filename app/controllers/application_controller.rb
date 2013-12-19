@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   before_action :authorize
-  helper_method :is_logged_in?, :is_admin?
+  helper_method :is_logged_in?, :is_admin?, :is_on_mobile?, :is_ios_device?
   
   protected
     # Only allow logged-in users
@@ -35,5 +35,17 @@ class ApplicationController < ActionController::Base
     
     def logout
       session[:user_id] = nil
+    end
+    
+    # Check whether the user is on a mobile device that supports HTML5 input forms, 
+    # specifically date and time pickers
+    def is_on_mobile?
+      agent = request.user_agent
+      (agent.match /Mobile/) || (agent.match /Android/)
+    end
+    
+    def is_ios_device?
+      agent = request.user_agent
+      (agent.match /iPhone/) || (agent.match /iPad/)
     end
 end

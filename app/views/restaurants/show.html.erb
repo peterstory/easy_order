@@ -18,32 +18,21 @@
 </p>
 
 <div class="map">
-  <strong>Map:</strong><br/>
-  <%= image_tag map_url %>
+  <a href="<%= directions_url %>" target="_blank">
+    <strong>Map:</strong><br/>
+    <%= image_tag map_url %>
+  </a>
 </div>
 
 <p>
-  <strong>Street:</strong>
+  <strong>Address:</strong><br />
   <%= @restaurant.street1 %>
   <% if @restaurant.street2 && !@restaurant.street2.blank? %>
   <br />
   <%= @restaurant.street2 %>
   <% end %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @restaurant.city %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @restaurant.state %>
-</p>
-
-<p>
-  <strong>Zipcode:</strong>
-  <%= @restaurant.zipcode %>
+  <br />
+  <%= @restaurant.city %>, <%= @restaurant.state %> <%= @restaurant.zipcode %>
 </p>
 
 <p>
@@ -58,7 +47,9 @@
 
 <p>
   <strong>Url:</strong>
-  <%= @restaurant.url %>
+  <% url = @restaurant.url %>
+  <% url = /^http/.match(url) ? url : "http://#{url}" %>
+  <%= link_to @restaurant.url, url %>
 </p>
 
 <p>
